@@ -32,13 +32,13 @@ class Genotype:
     # TODO constants should all be read in fron config instead of hardcoded
     #  here
 
-    MIN_WAVEGUIDE_HEIGHT = 200.0    # cm; inclusive -- func of min freq you
-    # care about picking up
-    MAX_WAVEGUIDE_HEIGHT = 1000.0   # cm; inclusive; # TODO also prevent being
-    # bigger than aperture (in line check somewhere, not here)
-
-    MIN_WAVEGUIDE_LENGTH = 100.0    # cm; inclusive
-    MAX_WAVEGUIDE_LENGTH = 1000.0   # cm; inclusive
+    # MIN_WAVEGUIDE_HEIGHT = 200.0    # cm; inclusive -- func of min freq you
+    # # care about picking up
+    # MAX_WAVEGUIDE_HEIGHT = 1000.0   # cm; inclusive; # TODO also prevent being
+    # # bigger than aperture (in line check somewhere, not here)
+    #
+    # MIN_WAVEGUIDE_LENGTH = 100.0    # cm; inclusive
+    # MAX_WAVEGUIDE_LENGTH = 1000.0   # cm; inclusive
 
     def __init__(self, cfg: ParametersObject,
                  height: Optional[float] = None,
@@ -65,17 +65,19 @@ class Genotype:
         self.cfg = cfg
 
         # Logical constraint constants
-        self.MAX_HEIGHT = cfg.MAX_HEIGHT
-        self.MIN_HEIGHT = cfg.MIN_HEIGHT
+        self.MAX_HEIGHT = float(cfg.MAX_HEIGHT)
+        self.MIN_HEIGHT = float(cfg.MIN_HEIGHT)
 
         # cm; inclusive
-        self.MIN_WAVEGUIDE_LENGTH = cfg.MIN_WAVEGUIDE_LENGTH
-        self.MAX_WAVEGUIDE_LENGTH = cfg.MAX_WAVEGUIDE_LENGTH
+        self.MIN_WAVEGUIDE_LENGTH = float(cfg.MIN_WAVEGUIDE_LENGTH)
+        self.MAX_WAVEGUIDE_LENGTH = float(cfg.MAX_WAVEGUIDE_LENGTH)
 
-        self.MIN_WAVEGUIDE_HEIGHT = cfg.MIN_WAVEGUIDE_HEIGHT # cm; inclusive -- func of min freq you
+        self.MIN_WAVEGUIDE_HEIGHT = float(cfg.MIN_WAVEGUIDE_HEIGHT) # cm;
+        # inclusive -- func of min freq you
     # care about picking up
-        self.MAX_WAVEGUIDE_HEIGHT = cfg.MAX_WAVEGUIDE_HEIGHT # cm; inclusive; # TODO also prevent being
-    # bigger than aperture (in line check somewhere, not here)
+        self.MAX_WAVEGUIDE_HEIGHT = float(cfg.MAX_WAVEGUIDE_HEIGHT) # cm;
+        # inclusive; # TODO also prevent being bigger than aperture smaller area
+        # rectangle than waveguide
 
         # Make sure the list of walls provided to the constructor is valid.
         if walls is not None and not all(isinstance(wall_pair, WallPair) for wall_pair in walls):

@@ -36,6 +36,8 @@ class Manager:
 
         :param pop_size: population size.
         :type pop_size: int
+        :param cfg: Configuration object.
+        :type cfg: ParametersObject
         :rtype: None
         """
         pop_size = cfg.population_size
@@ -76,10 +78,10 @@ def main() -> None:
     manager = Manager()
     cfg = ParametersObject("config.toml")
 
-    num_generations = cfg.num_generations
+    num_generations = int(cfg.num_generations)
 
     # 1. Randomly generates starting population
-    manager.initialize_population()
+    manager.initialize_population(cfg)
 
     for generation_num in range(1, num_generations):
         print(generation_num)

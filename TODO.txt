@@ -1,0 +1,25 @@
+-------------
+** PHASE 1 **
+-------------
+
+CODE:
+[ ] ALEX - func to write Genotype genes to CSV line
+[ ] KATE - config seed
+
+TESTING:
+[ ] KATE - write Manager tests
+[ ] KATE - confirm sufficient unit test coverage (full project)
+[ ] KATE - end-to-end happy path integration test
+
+
+
+-------------
+** PHASE 2 **
+-------------
+
+CODE:
+[ ] KATE - Code simple crossover
+[ ] EMILY - phylogeny tracking
+
+TESTING:
+[ ] KATE - test simple crossover

@@ -6,7 +6,7 @@ from src.Parameters import ParametersObject
 from src.Phenotype import Phenotype
 from src.WallPair import WallPair
 
-cfg = ParametersObject("src/config.toml")
+cfg = ParametersObject("/Users/kgskocelas/PycharmProjects/GENETIS-RHINO/src/config.toml")
 
 class PhenotypeTest(unittest.TestCase):
     """
