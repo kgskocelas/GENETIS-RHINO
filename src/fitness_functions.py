@@ -58,7 +58,7 @@ def beam_correction_factor(beam_power_db : npt.ArrayLike,
             `http://www.jb.man.ac.uk/research/cosmos/haslam_map/haslam408_dsds_Remazeilles2014.fits`
         location (astropy.EarthLocation):
             Object containing the location of the observer. If left unspecified,
-            will default to Jodrell Bank, `lat=53.2421deg, lon=-2.3067deg, height=70`.
+            will default to Jodrell Bank, `lat=53.2421deg, lon=-2.3067deg, flare_height=70`.
         obstime (astropy.Time):
             Object containing the time of the observation. If unspecified, will
             default to `2025-08-01 22:00:00Z`.

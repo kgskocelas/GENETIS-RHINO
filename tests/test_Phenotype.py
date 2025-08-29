@@ -17,6 +17,7 @@ class PhenotypeTest(unittest.TestCase):
         """
         Tests the Phenotype constructor with valid inputs.
         """
+        # Build a valid Genotype object.
         g = Genotype(cfg).generate(2, random.Random(1))
 
         # Build a valid Phenotype object.
@@ -26,8 +27,22 @@ class PhenotypeTest(unittest.TestCase):
         self.assertEqual(p.indv_id, "Kate")
         self.assertEqual(p.parent_id, "None")
         self.assertEqual(p.generation_created, 0)
-        self.assertEqual(p.fitness_score, None)
+        self.assertEqual(p.fitness_score, 880.3500822821234)
 
+    def test_make_offspring(self):
+        """Tests the make_offspring function."""
+        # build valid parent phenotype
+        g = Genotype(cfg).generate(2, random.Random(1))
+        parent = Phenotype(g, "Kate", "None", 0)
+
+        # make a single offspring via asexual reproduction
+        child = parent.make_offspring("Oona", 1, random.Random(1))
+
+        self.assertIsInstance(child.genotype, Genotype)
+        self.assertEqual(child.indv_id, "Oona")
+        self.assertEqual(child.parent_id, "Kate")
+        self.assertEqual(child.generation_created, 1)
+        self.assertEqual(child.fitness_score, 880.3086782506314)
 
 if __name__ == '__main__':
     unittest.main()

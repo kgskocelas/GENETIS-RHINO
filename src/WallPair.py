@@ -23,7 +23,7 @@ class WallPair:
     :param angle: The angle of the wall pair. Must be between 0 and 90
     degrees. Defaults to None.
     :type angle: float, optional
-    :param ridge_height: The height of the ridge as a percent of the horn.
+    :param ridge_height: The flare_height of the ridge as a percent of the horn.
     :type ridge_height: float, optional
     :param ridge_width_top: The width of the ridge as a percent of wall width
     at the top of the horn.
@@ -71,8 +71,8 @@ class WallPair:
         :param angle: The angle of the wall pair. Must be between 0 and 90
         degrees. Defaults to None.
         :type angle: float, optional
-        :param ridge_height: The height of the ridge as a percentage of the
-        total horn height. Starts from bottom of horn. Must be between 0%
+        :param ridge_height: The flare_height of the ridge as a percentage of the
+        total horn flare_height. Starts from bottom of horn. Must be between 0%
         and 100%(inclusive).
         :type ridge_height: float, optional
         :param ridge_width_top: The width of the ridge at the top of the horn.

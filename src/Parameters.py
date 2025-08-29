@@ -6,17 +6,21 @@ except ModuleNotFoundError:
     from tomli import load
 
 known_parameters = {
+    "random_num_seed": int,
     "population_size": int,
     "num_generations": int,
     "per_site_mut_rate": float,
     "mut_effect_size": float,
     "selection_scheme": str,
-    "MIN_HEIGHT": float,
-    "MAX_HEIGHT": float,
+    "NUM_WALL_PAIRS": int,
+    "MIN_FLARE_LENGTH": float,
+    "MAX_FLARE_LENGTH": float,
     "MIN_WAVEGUIDE_HEIGHT": float,
     "MAX_WAVEGUIDE_HEIGHT": float,
     "MIN_WAVEGUIDE_LENGTH": float,
     "MAX_WAVEGUIDE_LENGTH": float,
+    "MIN_WAVEGUIDE_WIDTH": float,
+    "MAX_WAVEGUIDE_WIDTH": float
 }
 
 class ParametersObject:

@@ -3,6 +3,8 @@ import copy
 import random
 from typing import Optional
 
+from src.CalcHornSize import CalcHornSize
+
 
 class Phenotype:
     """
@@ -46,31 +48,35 @@ class Phenotype:
         self.indv_id = indv_id
         self.parent_id = parent_id
         self.generation_created = generation_created
-        self.fitness_score = None # TODO replace with calc_fitness_score call
+        self.fitness_score = CalcHornSize(genotype).fitness_score
 
-    def make_offspring(self, new_id: int, rand: random.Random) -> object:
+    def make_offspring(self, new_id: str, generation_num: int,
+                       rand: random.Random) -> object:
         """
         Make offspring.
 
-        Makes an offspring from the individual Genotype this is called on.
+        Makes an offspring from the individual Phenotype this is called on.
 
-        :param per_site_mut_rate: The % chance any given variable in the Genotype will be mutated.
-        :type per_site_mut_rate: float
-        :param mut_effect_size: The mutation amplitude when a mutation takes place.
-        :type mut_effect_size: float
+        :param new_id: The new individual's unique ID.
+        :type new_id: str
+        :param generation_num: The current generation number.
+        :type generation_num: int
         :param rand: Random number generator object.
         :type rand: random.Random
         :rtype: None
         """
         # make a copy of parent 1 to be the offspring
         offspring = copy.deepcopy(self)
+
         # set fields for new_indiv
         offspring.parent_id = self.indv_id
         offspring.indv_id = new_id
+        offspring.generation_created = generation_num
 
         # mutate offspring
         offspring.genotype.mutate(rand)
 
-        # TODO should evaluate fitness
+        # calc new fitness score  TODO Replace with actual fitness calc
+        offspring.fitness_score = CalcHornSize(offspring.genotype).fitness_score
 
         return offspring

@@ -5,9 +5,9 @@ import src.Evolver as E
 
 
 class MockPhenotype:
-    def __init__(self, id, fitness):
-        self.id = id
-        self.fitness = fitness
+    def __init__(self, indiv_id, fitness_score):
+        self.indiv_id = indiv_id
+        self.fitness_score = fitness_score
 
     def make_offspring(self, new_id, rand):
         new_fit = {fitness: value+1 for fitness, value in self.fitness.items()}
@@ -26,16 +26,16 @@ class NSGA2Test(unittest.TestCase):
         self.rand = random.Random(1)
         self.population = [
             # Should be rank 1
-            MockPhenotype(1, fitness={"1": 10, "2": 20, "3": 30}),
-            MockPhenotype(2, fitness={"1": 20, "2": 10, "3": 30}),
-            MockPhenotype(3, fitness={"1": 30, "2": 20, "3": 10}),
+            MockPhenotype(1, fitness_score={"1": 10, "2": 20, "3": 30}),
+            MockPhenotype(2, fitness_score={"1": 20, "2": 10, "3": 30}),
+            MockPhenotype(3, fitness_score={"1": 30, "2": 20, "3": 10}),
             # Should be rank 2
-            MockPhenotype(4, fitness={"1": 100, "2": 200, "3": 300}),
-            MockPhenotype(5, fitness={"1": 200, "2": 100, "3": 300}),
+            MockPhenotype(4, fitness_score={"1": 100, "2": 200, "3": 300}),
+            MockPhenotype(5, fitness_score={"1": 200, "2": 100, "3": 300}),
             # Rank 3
-            MockPhenotype(6, fitness={"1": 999, "2": 999, "3": 999}),
+            MockPhenotype(6, fitness_score={"1": 999, "2": 999, "3": 999}),
             # Added to rank 1 to ensure a non-inf crowding distance
-            MockPhenotype(7, fitness={"1": 15, "2": 15, "3": 25}),
+            MockPhenotype(7, fitness_score={"1": 15, "2": 15, "3": 25}),
         ]
 
 
@@ -52,7 +52,7 @@ class NSGA2Test(unittest.TestCase):
         ]
 
         for front, expected_ids in zip(fronts, expected_fronts):
-            front_ids = {indiv.id for indiv in front}
+            front_ids = {indiv.indiv_id for indiv in front}
             assert front_ids == expected_ids
 
         # Check no dominance within a front
@@ -75,13 +75,13 @@ class NSGA2Test(unittest.TestCase):
             assert all(indiv.nsgaii_distance >= 0 for indiv in front)
 
             # Boundary individuals (extremes for any objective) must have inf
-            for obj in front[0].fitness.keys():
-                sorted_front = sorted(front, key=lambda x: x.fitness[obj])
+            for obj in front[0].fitness_score.keys():
+                sorted_front = sorted(front, key=lambda x: x.fitness_score[obj])
                 assert sorted_front[0].nsgaii_distance == float("inf")
                 assert sorted_front[-1].nsgaii_distance == float("inf")
 
             # If more individuals than objectives, at least one non-boundary exists, so we have finite CD
-            if len(front) > len(front[0].fitness):
+            if len(front) > len(front[0].fitness_score):
                 assert any(indiv.nsgaii_distance < float("inf") for indiv in front)
 
     def test_dominates(self):
@@ -92,7 +92,7 @@ class NSGA2Test(unittest.TestCase):
                 assert not E.dominates(indiv, self.population[i])
             
             # Last indiv in population should be dominated by everyone
-            if indiv.id != 6:
+            if indiv.indiv_id != 6:
                 assert E.dominates(indiv, self.population[-2])
 
         # First 3 indivs should dominate indivs 4-6

@@ -2,6 +2,8 @@
 from pathlib import Path
 
 import pandas as pd
+from pandas import DataFrame
+
 from src.Phenotype import Phenotype
 
 
@@ -29,8 +31,7 @@ class Analysis:
 
     def to_csv_best_individual(self,
                                best_indvs: list[Phenotype],
-                               csv_path: str="best_individuals.csv",
-    ) -> None:
+                               csv_path: str="best_individuals.csv") -> None:
         """Write the attributes of the best phenotypes to a CSV file."""
 
         def make_row(indv: Phenotype) -> pd.DataFrame:
@@ -49,7 +50,7 @@ class Analysis:
         indv_df.to_csv(csv_path, mode="w", header=True, index=False)
         return indv_df
 
-    def update_fitness(self) -> None:
+    def update_fitness(self) -> dict[str, int]:
         """Read the fitness from each individual and calculate the maximum and average."""
         # Create dictionary containing fitness scores from every phenotype in the population.
         all_scores = {}
@@ -63,12 +64,12 @@ class Analysis:
             else:
                 all_scores = {metric: [score] for metric, score in scores.items()}
         # Create the fitness statistics log.
-        fitness = {"Generation": self.generation_counter}
+        fitness_stats_dict = {"Generation": self.generation_counter}
         for metric, scores in all_scores.items():
-            fitness[metric+"_Average"] = [sum(scores) / len(scores)]
-            fitness[metric+"_Maximum"] = [max(scores)]
-        self.to_csv_fitness(fitness)
-        return fitness
+            fitness_stats_dict[metric+"_Average"] = [sum(scores) / len(scores)]
+            fitness_stats_dict[metric+"_Maximum"] = [max(scores)]
+        self.to_csv_fitness(fitness_stats_dict)
+        return fitness_stats_dict
 
     def to_csv_fitness(self, fitness: dict, csv_path: str="fitness.csv") -> pd.DataFrame:
         """Write generation fitness statistics to a CSV file."""

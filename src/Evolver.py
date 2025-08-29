@@ -114,8 +114,8 @@ def dominates(p: Phenotype, q: Phenotype) -> bool:
     q (Phenotype): Second individual to compare
 
     """
-    p_better_or_equal = all(p.fitness[obj] <= q.fitness[obj] for obj in p.fitness)
-    p_strictly_better = any(p.fitness[obj] < q.fitness[obj] for obj in p.fitness)
+    p_better_or_equal = all(p.fitness_score[obj] <= q.fitness_score[obj] for obj in p.fitness_score)
+    p_strictly_better = any(p.fitness_score[obj] < q.fitness_score[obj] for obj in p.fitness_score)
     return p_better_or_equal and p_strictly_better
 
 def crowding_distance_assignment(front: list) -> None:
@@ -139,12 +139,12 @@ def crowding_distance_assignment(front: list) -> None:
         indiv.nsgaii_distance = 0.0
 
     # For every objective
-    for obj in front[0].fitness:
+    for obj in front[0].fitness_score:
         # Sort the front for this objective
-        front.sort(key=lambda indiv: indiv.fitness[obj])
+        front.sort(key=lambda indiv: indiv.fitness_score[obj])
         # Get the max and min for normalization
-        f_min = front[0].fitness[obj]
-        f_max = front[-1].fitness[obj]
+        f_min = front[0].fitness_score[obj]
+        f_max = front[-1].fitness_score[obj]
 
         # If equal we will get division by zero, so skip
         if f_max == f_min:
@@ -158,7 +158,7 @@ def crowding_distance_assignment(front: list) -> None:
         for i in range(1, len(front) - 1):
             if front[i].nsgaii_distance != float("inf"):
                 # Get the two closest points
-                prev_f = front[i - 1].fitness[obj]
-                next_f = front[i + 1].fitness[obj]
+                prev_f = front[i - 1].fitness_score[obj]
+                next_f = front[i + 1].fitness_score[obj]
                 # Assign normalized crowding distance
                 front[i].nsgaii_distance += (next_f - prev_f) / (f_max - f_min)

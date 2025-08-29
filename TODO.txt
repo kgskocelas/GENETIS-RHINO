@@ -4,7 +4,8 @@
 
 CODE:
 [ ] ALEX - func to write Genotype genes to CSV line
-[ ] KATE - config seed
+[X] KATE - parameterize random number seed
+[ ] KATE - parameterize % of wall pairs to be generated without a ridge
 
 TESTING:
 [ ] KATE - write Manager tests
@@ -23,3 +24,4 @@ CODE:
 
 TESTING:
 [ ] KATE - test simple crossover
+[ ] EMILY - test phylogeny tracking

@@ -13,37 +13,13 @@ from src.WallPair import WallPair
 
 
 class Genotype:
-    """
-    Genotype class.
-
-    A class representing an individual antenna's genotype.
-
-    :param height: The height of the antenna in lambda.
-    :type height: float, optional
-    :param waveguide_height: The height of the waveguide.
-    :type waveguide_height: float, optional
-    :param waveguide_length: The length of the waveguide.
-    :type waveguide_length: float, optional
-    :param walls: A list of WallPair objects that comprise the walls of the
-    antenna.
-    :type walls: list, optional
-    """
-
-    # TODO constants should all be read in fron config instead of hardcoded
-    #  here
-
-    # MIN_WAVEGUIDE_HEIGHT = 200.0    # cm; inclusive -- func of min freq you
-    # # care about picking up
-    # MAX_WAVEGUIDE_HEIGHT = 1000.0   # cm; inclusive; # TODO also prevent being
-    # # bigger than aperture (in line check somewhere, not here)
-    #
-    # MIN_WAVEGUIDE_LENGTH = 100.0    # cm; inclusive
-    # MAX_WAVEGUIDE_LENGTH = 1000.0   # cm; inclusive
+    """Genotype class."""
 
     def __init__(self, cfg: ParametersObject,
-                 height: Optional[float] = None,
+                 flare_length: Optional[float] = None,
                  waveguide_height: Optional[float] = None,
                  waveguide_length: Optional[float] = None,
+                 waveguide_width: Optional[float] = None,
                  walls: Optional[list] = None) -> None:
         """
         Genotype Constructor.
@@ -51,12 +27,16 @@ class Genotype:
         The constructor for a Genotype object (an individual antenna's
         genotype).
 
-        :param height: The height of the antenna.
-        :type height: float, optional
-        :param waveguide_height: The height of the waveguide.
+        :param cfg: The parameters of the antenna
+        :type cfg: ParametersObject
+        :param flare_length: The length of the antenna's flare
+        :type flare_length: float, optional
+        :param waveguide_height: The flare_height of the waveguide.
         :type waveguide_height: float, optional
         :param waveguide_length: The length of the waveguide.
         :type waveguide_length: float, optional
+        :param waveguide_width: The length of the waveguide.
+        :type waveguide_width: float, optional
         :param walls: A list of WallPair objects that comprise the walls of the
         antenna.
         :type walls: list, optional
@@ -65,27 +45,30 @@ class Genotype:
         self.cfg = cfg
 
         # Logical constraint constants
-        self.MAX_HEIGHT = float(cfg.MAX_HEIGHT)
-        self.MIN_HEIGHT = float(cfg.MIN_HEIGHT)
+        self.MIN_FLARE_LENGTH = float(cfg.MIN_FLARE_LENGTH)
+        self.MAX_FLARE_LENGTH = float(cfg.MAX_FLARE_LENGTH)
 
         # cm; inclusive
         self.MIN_WAVEGUIDE_LENGTH = float(cfg.MIN_WAVEGUIDE_LENGTH)
         self.MAX_WAVEGUIDE_LENGTH = float(cfg.MAX_WAVEGUIDE_LENGTH)
 
         self.MIN_WAVEGUIDE_HEIGHT = float(cfg.MIN_WAVEGUIDE_HEIGHT) # cm;
-        # inclusive -- func of min freq you
-    # care about picking up
+        # inclusive -- func of min freq you care about picking up
         self.MAX_WAVEGUIDE_HEIGHT = float(cfg.MAX_WAVEGUIDE_HEIGHT) # cm;
         # inclusive; # TODO also prevent being bigger than aperture smaller area
         # rectangle than waveguide
+
+        self.MIN_WAVEGUIDE_WIDTH = float(cfg.MIN_WAVEGUIDE_WIDTH)
+        self.MAX_WAVEGUIDE_WIDTH = float(cfg.MAX_WAVEGUIDE_WIDTH)
 
         # Make sure the list of walls provided to the constructor is valid.
         if walls is not None and not all(isinstance(wall_pair, WallPair) for wall_pair in walls):
             raise ValueError("walls must be a list of WallPair objects.")
 
-        self.height = height
+        self.flare_length = flare_length
         self.waveguide_height = waveguide_height
         self.waveguide_length = waveguide_length
+        self.waveguide_width = waveguide_width
         self.walls = walls
 
     def generate(self, num_wall_pairs: int, rand: random.Random) -> object:
@@ -101,8 +84,10 @@ class Genotype:
         :return: Genotype object
         :rtype: Genotype
         """
-        # generate valid random height
-        height = rand.uniform(self.MIN_HEIGHT, self.MAX_HEIGHT)
+        # generate valid random flare_height
+        flare_length = rand.uniform(self.MIN_FLARE_LENGTH,
+                                    self.MAX_FLARE_LENGTH)
+
 
         # generate valid random waveguide_height
         waveguide_height = rand.uniform(self.MIN_WAVEGUIDE_HEIGHT,
@@ -112,10 +97,15 @@ class Genotype:
         waveguide_length = rand.uniform(self.MIN_WAVEGUIDE_LENGTH,
                                          self.MAX_WAVEGUIDE_LENGTH)
 
+        # generate valid random waveguide_width
+        waveguide_width = rand.uniform(self.MIN_WAVEGUIDE_WIDTH,
+                                       self.MAX_WAVEGUIDE_WIDTH)
+
         # generate list of walls with randomly generated values
         walls = WallPair().generate_list(num_wall_pairs, rand)
 
-        return Genotype(self.cfg, height, waveguide_height, waveguide_length, walls)
+        return Genotype(self.cfg, flare_length, waveguide_height,
+                        waveguide_length, waveguide_width, walls)
 
     def mutate(self, rand: random.Random) -> None:
         """
@@ -130,20 +120,22 @@ class Genotype:
         per_site_mut_rate = self.cfg.per_site_mut_rate
         mut_effect_size = self.cfg.mut_effect_size
 
-        core_genes = ["height", "waveguide_height", "waveguide_length"]
+        core_genes = ["flare_length", "waveguide_height", "waveguide_length",
+                      "waveguide_width"]
 
         # Iterate over each gene in the Genotype
         for gene in core_genes:
             # if it's randomly selected to mutate, apply a mutation of
             # mut_effect_size in Guassian distribution
             if per_site_mut_rate >= rand.uniform(0, 1):
-                # height gene
-                if gene == "height":
-                    self.height = self.height + rand.gauss(0,mut_effect_size)
+                # flare_length gene
+                if gene == "flare_length":
+                    self.flare_length = self.flare_length + rand.gauss(0,
+                                                                  mut_effect_size)
                     # if under min bound, set to min
-                    self.height = max(self.height, self.MIN_HEIGHT)
+                    self.flare_length = max(self.flare_length, self.MIN_FLARE_LENGTH)
                     # if over max bound, set to max
-                    self.height = min(self.height, self.MAX_HEIGHT)
+                    self.flare_length = min(self.flare_length, self.MAX_FLARE_LENGTH)
 
                 # waveguide_height gene
                 elif gene == "waveguide_height":
@@ -161,11 +153,21 @@ class Genotype:
                                                 rand.gauss(0, mut_effect_size))
                     # if under min bound, set to min
                     self.waveguide_length = max(self.waveguide_length, self.MIN_WAVEGUIDE_LENGTH)
-                    # if over of max bound, set to max
+                    # if over max bound, set to max
                     self.waveguide_length = min(self.waveguide_length, self.MAX_WAVEGUIDE_LENGTH)
+
+                # waveguide_width gene
+                elif gene == "waveguide_width":
+                    self.waveguide_width = (self.waveguide_width +
+                                            rand.gauss(0, mut_effect_size))
+                    # if under min bound, set to min
+                    self.waveguide_width = max(self.waveguide_width, self.MIN_WAVEGUIDE_WIDTH)
+                    # if over max bound, set to max
+                    self.waveguide_width = min(self.waveguide_width, self.MAX_WAVEGUIDE_WIDTH)
+
         # mutate the Genotype's walls
-        self._mutate_walls(self.walls, per_site_mut_rate,
-                               mut_effect_size, rand)
+        self._mutate_walls(self.walls, per_site_mut_rate, mut_effect_size,
+                           rand)
 
     def _mutate_walls(self, walls: list, per_site_mut_rate: float,
                       mut_effect_size: float, rand: random.Random) -> None:

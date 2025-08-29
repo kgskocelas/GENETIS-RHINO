@@ -10,11 +10,11 @@ class GenotypeTest(unittest.TestCase):
     """Tester class for the WallPair class."""
     # Constants for all tests
     SEED = 1                 # random number generator seed
-    PER_SITE_MUT_RATE = 0.3  # per site mutation rate
+    PER_SITE_MUT_RATE = 1.0  # per site mutation rate
     MUT_AMPLITUDE = 0.1      # mutation amplitude
     
     # Temporary, to get tests compliant with new config
-    cfg = ParametersObject("/Users/kgskocelas/PycharmProjects/GENETIS-RHINO/src/config.toml")
+    cfg = ParametersObject("../src/config.toml")
     cfg.per_site_mut_rate = PER_SITE_MUT_RATE
     cfg.mut_effect_size = MUT_AMPLITUDE
 
@@ -25,11 +25,12 @@ class GenotypeTest(unittest.TestCase):
         walls = WallPair().generate_list(2, rand)
 
         # Build genotype
-        g = Genotype(self.cfg, 1.0,2.0,3.0, walls)
+        g = Genotype(self.cfg, 1.0,2.0,3.0, 4.0, walls)
 
-        self.assertEqual(g.height, 1)
+        self.assertEqual(g.flare_length, 1)
         self.assertEqual(g.waveguide_height, 2)
         self.assertEqual(g.waveguide_length, 3)
+        self.assertEqual(g.waveguide_width, 4)
         self.assertIsInstance(g.walls[0], WallPair)
         self.assertIsInstance(g.walls[1], WallPair)
 
@@ -42,16 +43,17 @@ class GenotypeTest(unittest.TestCase):
 
         # Build genotype and make sure the error is raised
         with self.assertRaises(ValueError):
-            Genotype(self.cfg, 1, 2, 3, walls)
+            Genotype(self.cfg, 1, 2, 3, 4, walls)
 
     def test_generate(self):
         """Tests Genotype generation with valid inputs."""
         rand = random.Random(GenotypeTest.SEED)
         g = Genotype(self.cfg).generate(2, rand)
 
-        self.assertEqual(g.height, 2.4030927323372038)
+        self.assertEqual(g.flare_length, 2.4030927323372038)
         self.assertEqual(g.waveguide_height, 877.9469895497862)
         self.assertEqual(g.waveguide_length, 787.3971570789527)
+        self.assertEqual(g.waveguide_width, 329.56212316547953)
         self.assertIsInstance(g.walls[0], WallPair)
         self.assertIsInstance(g.walls[1], WallPair)
 
@@ -62,9 +64,10 @@ class GenotypeTest(unittest.TestCase):
         g = Genotype(self.cfg).generate(2, rand)
         g.mutate(rand)
 
-        self.assertEqual(g.height, 2.4030927323372038)
-        self.assertEqual(g.waveguide_height, 878.1496524811672)
-        self.assertEqual(g.waveguide_length, 787.3245830694012)
+        self.assertEqual(g.flare_length, 2.605755663718255)
+        self.assertEqual(g.waveguide_height, 877.8744155402347)
+        self.assertEqual(g.waveguide_length, 787.168507152181)
+        self.assertEqual(g.waveguide_width, 329.5012478420334)
 
 if __name__ == '__main__':
     unittest.main()
