@@ -10,7 +10,8 @@ class MockPhenotype:
         self.fitness_score = fitness_score
 
     def make_offspring(self, new_id, rand):
-        new_fit = {fitness: value+1 for fitness, value in self.fitness.items()}
+        new_fit = {fitness: value+1 for fitness, value in
+                   self.fitness_score.items()}
         new_indiv = MockPhenotype(new_id, new_fit)
         return new_indiv
 
