@@ -5,7 +5,7 @@ from src.Genotype import Genotype
 from src.Parameters import ParametersObject
 from src.Phenotype import Phenotype
 
-cfg = ParametersObject("../src/config.toml")
+cfg = ParametersObject("src/config.toml")
 
 class PhenotypeTest(unittest.TestCase):
     """

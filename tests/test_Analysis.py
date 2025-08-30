@@ -6,7 +6,7 @@ from src.Genotype import Genotype
 from src.Parameters import ParametersObject
 from src.Phenotype import Phenotype
 
-cfg = ParametersObject("../src/config.toml")
+cfg = ParametersObject("src/config.toml")
 
 class AnalysisTest(unittest.TestCase):
     """A test class to test the Analysis class."""
