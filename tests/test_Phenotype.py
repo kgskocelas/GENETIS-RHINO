@@ -55,7 +55,7 @@ class PhenotypeTest(unittest.TestCase):
 
         self.assertIsInstance(child.genotype, Genotype)
         self.assertEqual(child.indv_id, "Oona")
-        self.assertEqual(child.parent_id, "Kate")
+        self.assertEqual(child.parent1_id, "Kate")
         self.assertEqual(child.generation_created, 1)
         self.assertEqual(child.fitness_scores, {
             'wp0_angle': 44.58915783827469,
