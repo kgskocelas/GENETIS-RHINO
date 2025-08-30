@@ -9,6 +9,8 @@ This module provides:
 import random
 from typing import Optional
 
+from src.Parameters import ParametersObject
+
 
 class WallPair:
     """
@@ -36,28 +38,8 @@ class WallPair:
     :type ridge_thickness_top: float, optional
     """
 
-    # Logical constraint constants
-    MIN_ANGLE = 0.0              # degrees; exclusive
-    MAX_ANGLE = 90.0             # degrees; inclusive
-
-    MIN_RIDGE_HEIGHT = 0.0       # % of horn; exclusive
-    MAX_RIDGE_HEIGHT = 100.0     # % of horn; inclusive
-
-    MIN_RIDGE_WIDTH_TOP = 0.0    # % of wall width at top of horn; inclusive
-    MAX_RIDGE_WIDTH_TOP = 100.0  # %; inclusive
-
-    MIN_RIDGE_WIDTH_BOTTOM = 0.0     # %; inclusive
-    MAX_RIDGE_WIDTH_BOTTOM = 100.0   # %; inclusive
-
-    MIN_RIDGE_THICKNESS_TOP = 0.0    # % of distance to the middle of the
-    # horn; inclusive
-    MAX_RIDGE_THICKNESS_TOP = 100.0  # %; inclusive
-
-    MIN_RIDGE_THICKNESS_BOTTOM = 0.0    # %; % of distance to the middle of
-    # the horn; inclusive
-    MAX_RIDGE_THICKNESS_BOTTOM = 100.0  # %; inclusive
-
-    def __init__(self, angle: Optional[float] = None,
+    def __init__(self, cfg: ParametersObject,
+                 angle: Optional[float] = None,
                  ridge_height: Optional[float] = None,
                  ridge_width_top: Optional[float] = None,
                  ridge_width_bottom: Optional[float] = None,
@@ -91,6 +73,40 @@ class WallPair:
         :type ridge_thickness_bottom: float, optional
         :rtype: None
         """
+        # config
+        self.cfg = cfg
+
+        # Logical constraint constants
+        self.MIN_ANGLE = float(cfg.MIN_ANGLE)  # degrees; exclusive
+        self.MAX_ANGLE = float(cfg.MAX_ANGLE)  # degrees; inclusive
+
+        self.MIN_RIDGE_HEIGHT = float(cfg.MIN_RIDGE_HEIGHT)  # % of horn;
+        # exclusive
+        self.MAX_RIDGE_HEIGHT = float(cfg.MAX_RIDGE_HEIGHT)  # % of horn;
+        # inclusive
+
+        self.MIN_RIDGE_WIDTH_TOP = float(cfg.MIN_RIDGE_WIDTH_TOP)  # % of wall
+        # width at top of horn; inclusive
+        self.MAX_RIDGE_WIDTH_TOP = float(cfg.MAX_RIDGE_WIDTH_TOP) # %;
+        # inclusive
+
+        self.MIN_RIDGE_WIDTH_BOTTOM = float(cfg.MIN_RIDGE_WIDTH_BOTTOM)  # %;
+        # inclusive
+        self.MAX_RIDGE_WIDTH_BOTTOM = float(cfg.MAX_RIDGE_WIDTH_BOTTOM)  # %;
+        # inclusive
+
+        self.MIN_RIDGE_THICKNESS_TOP = float(cfg.MIN_RIDGE_THICKNESS_TOP)  # %
+        # of distance to the middle of the horn; inclusive
+        self.MAX_RIDGE_THICKNESS_TOP = float(cfg.MAX_RIDGE_THICKNESS_TOP)  #%;
+        # inclusive
+
+        self.MIN_RIDGE_THICKNESS_BOTTOM = (
+            float(cfg.MIN_RIDGE_THICKNESS_BOTTOM))  # %; % of distance to the
+            # middle of the horn; inclusive
+        self.MAX_RIDGE_THICKNESS_BOTTOM = (
+            float(cfg.MAX_RIDGE_THICKNESS_BOTTOM))   # %; inclusive
+
+        # WallPair variables
         self.has_ridge = False
         self.angle = angle
         self.ridge_height = ridge_height
@@ -111,28 +127,28 @@ class WallPair:
         :rtype: WallPair object
         """
         # Generate a random angle within the specified constraints
-        angle = rand.uniform(WallPair.MIN_ANGLE, WallPair.MAX_ANGLE)
+        angle = rand.uniform(self.MIN_ANGLE, self.MAX_ANGLE)
 
         # Generate a random ridge_height within the specified constraints
-        ridge_height = rand.uniform(WallPair.MIN_RIDGE_HEIGHT,
-                                      WallPair.MAX_RIDGE_HEIGHT)
+        ridge_height = rand.uniform(self.MIN_RIDGE_HEIGHT,
+                                      self.MAX_RIDGE_HEIGHT)
 
         # Generate a random ridge_width within the specified constraints
-        ridge_width_top = rand.uniform(WallPair.MIN_RIDGE_WIDTH_TOP,
-                                     WallPair.MAX_RIDGE_WIDTH_TOP)
+        ridge_width_top = rand.uniform(self.MIN_RIDGE_WIDTH_TOP,
+                                     self.MAX_RIDGE_WIDTH_TOP)
 
-        ridge_width_bottom = rand.uniform(WallPair.MIN_RIDGE_WIDTH_BOTTOM,
-                                       WallPair.MAX_RIDGE_WIDTH_BOTTOM)
+        ridge_width_bottom = rand.uniform(self.MIN_RIDGE_WIDTH_BOTTOM,
+                                       self.MAX_RIDGE_WIDTH_BOTTOM)
 
         # Generate a random ridge_thickness within the specified constraints
-        ridge_thickness_top = rand.uniform(WallPair.MIN_RIDGE_THICKNESS_TOP,
-                                         WallPair.MAX_RIDGE_THICKNESS_TOP)
+        ridge_thickness_top = rand.uniform(self.MIN_RIDGE_THICKNESS_TOP,
+                                         self.MAX_RIDGE_THICKNESS_TOP)
 
-        ridge_thickness_bottom = rand.uniform(
-            WallPair.MIN_RIDGE_THICKNESS_BOTTOM,
-                                       WallPair.MAX_RIDGE_THICKNESS_BOTTOM)
+        ridge_thickness_bottom = rand.uniform(self.MIN_RIDGE_THICKNESS_BOTTOM,
+                                       self.MAX_RIDGE_THICKNESS_BOTTOM)
 
-        return WallPair(angle, ridge_height, ridge_width_top, ridge_width_bottom,
+        return WallPair(self.cfg, angle, ridge_height, ridge_width_top,
+                        ridge_width_bottom,
                         ridge_thickness_top, ridge_thickness_bottom)
 
     def generate_with_ridge(self, rand: random.Random) -> object:
@@ -145,31 +161,31 @@ class WallPair:
         :rtype: WallPair object
         """
         # Randomly generate a WallPair object without a ridge
-        wp = WallPair().generate_without_ridge(rand)
+        wp = WallPair(self.cfg).generate_without_ridge(rand)
 
         # Ensure none of the ridge-defining variables are set to 0
         while wp.ridge_height == 0:
-            wp.ridge_height = rand.uniform(WallPair.MIN_RIDGE_HEIGHT,
-                                             WallPair.MAX_RIDGE_HEIGHT)
+            wp.ridge_height = rand.uniform(self.MIN_RIDGE_HEIGHT,
+                                             self.MAX_RIDGE_HEIGHT)
 
         while wp.ridge_width_top == 0:
-            wp.ridge_width_top = rand.uniform(WallPair.MIN_RIDGE_WIDTH_TOP,
-                                            WallPair.MAX_RIDGE_WIDTH_TOP)
+            wp.ridge_width_top = rand.uniform(self.MIN_RIDGE_WIDTH_TOP,
+                                            self.MAX_RIDGE_WIDTH_TOP)
 
         while wp.ridge_width_bottom == 0:
             wp.ridge_width_bottom = rand.uniform(
-                WallPair.MIN_RIDGE_WIDTH_BOTTOM,
-                WallPair.MAX_RIDGE_WIDTH_BOTTOM)
+                self.MIN_RIDGE_WIDTH_BOTTOM,
+                self.MAX_RIDGE_WIDTH_BOTTOM)
 
         while wp.ridge_thickness_top == 0:
             wp.ridge_thickness_top = rand.uniform(
-                WallPair.MIN_RIDGE_THICKNESS_TOP,
-                WallPair.MAX_RIDGE_THICKNESS_TOP)
+                self.MIN_RIDGE_THICKNESS_TOP,
+                self.MAX_RIDGE_THICKNESS_TOP)
 
         while wp.ridge_thickness_bottom == 0:
             wp.ridge_thickness_bottom = rand.uniform(
-                WallPair.MIN_RIDGE_THICKNESS_BOTTOM,
-                WallPair.MAX_RIDGE_THICKNESS_BOTTOM)
+                self.MIN_RIDGE_THICKNESS_BOTTOM,
+                self.MAX_RIDGE_THICKNESS_BOTTOM)
 
         # Express ridge
         wp.has_ridge = True
@@ -197,7 +213,101 @@ class WallPair:
             # Randomly select type of wall pair to generate (ridge or no ridge)
             if random.randint(0,1) == 0:  #TODO do we actually want these to
                 # be equal odds?
-                walls.append(WallPair().generate_without_ridge(rand))
+                walls.append(WallPair(self.cfg).generate_without_ridge(rand))
             else:
-                walls.append(WallPair().generate_with_ridge(rand))
+                walls.append(WallPair(self.cfg).generate_with_ridge(rand))
         return walls
+
+
+    def mutate(self, per_site_mut_rate: float,
+                      mut_effect_size: float, rand: random.Random) -> None:
+        """
+        Mutate WallPair genes.
+
+        A helper function to mutate a WallPair's genes. Iterates
+        through each WallPair gene.
+
+        :param per_site_mut_rate: The % chance any given variable in the
+        WallPair will be mutated.
+        :type per_site_mut_rate: float
+        :param mut_effect_size: The mutation amplitude when a mutation takes place.
+        :type mut_effect_size: float
+        :param rand: Random number generator object.
+        :type rand: random.Random
+        :rtype: None
+        """
+        wallpair_genes = ["angle", "ridge_height", "ridge_width_top",
+                          "ridge_width_bottom", "ridge_thickness_top",
+                          "ridge_thickness_bottom"]
+        # Iterate over each gene in the WallPair
+        for gene in wallpair_genes:
+            # if it's randomly selected to mutate, apply a mutation
+            # of mut_effect_size in Guassian distribution
+            if per_site_mut_rate >= rand.uniform(0, 1):
+                # angle gene
+                if gene == "angle":
+                    self.angle = self.angle + rand.gauss(0,mut_effect_size)
+                    # if under min bound, set to min
+                    self.angle = max(self.angle, self.MIN_ANGLE)
+                    # if over max bound, set to max
+                    self.angle = min(self.angle, self.MAX_ANGLE)
+
+                # ridge_height gene
+                if gene == "ridge_height":
+                    self.ridge_height = self.ridge_height + rand.gauss(0,
+                                                                   mut_effect_size)
+                    # if under min bound, set to min
+                    self.ridge_height = max(self.ridge_height,
+                                          self.MIN_RIDGE_HEIGHT)
+                    # if over max bound, set to max
+                    self.ridge_height = min(self.ridge_height,
+                                          self.MAX_RIDGE_HEIGHT)
+
+                # ridge_width_top gene
+                if gene == "ridge_width_top":
+                    self.ridge_width_top = (self.ridge_width_top +
+                                          rand.gauss(0,
+                                                     mut_effect_size))
+                    # if under min bound, set to min
+                    self.ridge_width_top = max(self.ridge_width_top,
+                                             self.MIN_RIDGE_WIDTH_TOP)
+                    # if over max bound, set to max
+                    self.ridge_width_top = min(self.ridge_width_top,
+                                             self.MAX_RIDGE_WIDTH_TOP)
+
+                # ridge_width_bottom gene
+                if gene == "ridge_width_bottom":
+                    self.ridge_width_bottom = (self.ridge_width_bottom +
+                                             rand.gauss(0, mut_effect_size))
+                    # if under min bound, set to min
+                    self.ridge_width_bottom = max(self.ridge_width_bottom,
+                                                self.MIN_RIDGE_WIDTH_BOTTOM)
+                    # if over max bound, set to max
+                    self.ridge_width_bottom = min(self.ridge_width_bottom,
+                                                self.MAX_RIDGE_WIDTH_BOTTOM)
+
+                # ridge_thickness_top gene
+                if gene == "ridge_thickness_top":
+                    self.ridge_thickness_top = (self.ridge_thickness_top +
+                                              rand.gauss(0,
+                                                         mut_effect_size))
+                    # if under min bound, set to min
+                    self.ridge_thickness_top = max(self.ridge_thickness_top,
+                                                 self.MIN_RIDGE_THICKNESS_TOP)
+                    # if over max bound, set to max
+                    self.ridge_thickness_top = min(self.ridge_thickness_top,
+                                                 self.MAX_RIDGE_THICKNESS_TOP)
+
+                # ridge_thickness_bottom gene
+                if gene == "ridge_thickness_bottom":
+                    self.ridge_thickness_bottom = (self.ridge_thickness_bottom +
+                                                   rand.gauss(0,
+                                                              mut_effect_size))
+                    # if under min bound, set to min
+                    self.ridge_thickness_bottom = max(
+                        self.ridge_thickness_bottom,
+                        self.MIN_RIDGE_THICKNESS_BOTTOM)
+                    # if over max bound, set to max
+                    self.ridge_width_bottom = min(
+                        self.ridge_thickness_bottom,
+                        self.MAX_RIDGE_THICKNESS_BOTTOM)

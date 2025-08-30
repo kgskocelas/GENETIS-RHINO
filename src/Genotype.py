@@ -84,7 +84,7 @@ class Genotype:
         :return: Genotype object
         :rtype: Genotype
         """
-        # generate valid random flare_height
+        # generate valid random flare_length
         flare_length = rand.uniform(self.MIN_FLARE_LENGTH,
                                     self.MAX_FLARE_LENGTH)
 
@@ -102,7 +102,7 @@ class Genotype:
                                        self.MAX_WAVEGUIDE_WIDTH)
 
         # generate list of walls with randomly generated values
-        walls = WallPair().generate_list(num_wall_pairs, rand)
+        walls = WallPair(self.cfg).generate_list(num_wall_pairs, rand)
 
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)
@@ -166,103 +166,8 @@ class Genotype:
                     self.waveguide_width = min(self.waveguide_width, self.MAX_WAVEGUIDE_WIDTH)
 
         # mutate the Genotype's walls
-        self._mutate_walls(self.walls, per_site_mut_rate, mut_effect_size,
-                           rand)
-
-    def _mutate_walls(self, walls: list, per_site_mut_rate: float,
-                      mut_effect_size: float, rand: random.Random) -> None:
-        """
-        Mutate WallPair genes.
-
-        A helper function to mutate a Genotype's WallPair genes. Iterates
-        through each WallPair object in the list of walls and over each gene
-        in each WallPair object.
-
-        :param walls: A list of WallPair objects.
-        :type walls: list
-        :param per_site_mut_rate: The % chance any given variable in the Genotype will be mutated.
-        :type per_site_mut_rate: float
-        :param mut_effect_size: The mutation amplitude when a mutation takes place.
-        :type mut_effect_size: float
-        :param rand: Random number generator object.
-        :type rand: random.Random
-        :rtype: None
-        """
-        wallpair_genes = ["angle", "ridge_height", "ridge_width_top",
-                          "ridge_width_bottom", "ridge_thickness_top",
-                          "ridge_thickness_bottom"]
-        # Iterate over each WallPair object in the walls list
-        for wp in walls:
-            # Iterate over each gene in the WallPair
-            for gene in wallpair_genes:
-                # if it's randomly selected to mutate, apply a mutation
-                    # of mut_effect_size in Guassian distribution
-                if per_site_mut_rate >= rand.uniform(0, 1):
-                    # angle gene
-                    if gene == "angle":
-                        wp.angle = wp.angle + rand.gauss(0,mut_effect_size)
-                        # if under min bound, set to min
-                        wp.angle = max(wp.angle, wp.MIN_ANGLE)
-                        # if over max bound, set to max
-                        wp.angle = min(wp.angle, wp.MAX_ANGLE)
-
-                    # ridge_height gene
-                    if gene == "ridge_height":
-                        wp.ridge_height = wp.ridge_height + rand.gauss(0,
-                                                                 mut_effect_size)
-                        # if under min bound, set to min
-                        wp.ridge_height = max(wp.ridge_height,
-                                              wp.MIN_RIDGE_HEIGHT)
-                        # if over max bound, set to max
-                        wp.ridge_height = min(wp.ridge_height,
-                                              wp.MAX_RIDGE_HEIGHT)
-
-                    # ridge_width_top gene
-                    if gene == "ridge_width_top":
-                        wp.ridge_width_top = (wp.ridge_width_top +
-                                              rand.gauss(0,
-                                                             mut_effect_size))
-                        # if under min bound, set to min
-                        wp.ridge_width_top = max(wp.ridge_width_top,
-                                                 wp.MIN_RIDGE_WIDTH_TOP)
-                        # if over max bound, set to max
-                        wp.ridge_width_top = min(wp.ridge_width_top,
-                                                 wp.MAX_RIDGE_WIDTH_TOP)
-
-                    # ridge_width_bottom gene
-                    if gene == "ridge_width_bottom":
-                        wp.ridge_width_bottom = (wp.ridge_width_bottom +
-                                                 rand.gauss(0, mut_effect_size))
-                        # if under min bound, set to min
-                        wp.ridge_width_bottom = max(wp.ridge_width_bottom,
-                                                    wp.MIN_RIDGE_WIDTH_BOTTOM)
-                        # if over max bound, set to max
-                        wp.ridge_width_bottom = min(wp.ridge_width_bottom,
-                                                    wp.MAX_RIDGE_WIDTH_BOTTOM)
-
-                    # ridge_thickness_top gene
-                    if gene == "ridge_thickness_top":
-                        wp.ridge_thickness_top = (wp.ridge_thickness_top +
-                                                  rand.gauss(0,
-                                                             mut_effect_size))
-                        # if under min bound, set to min
-                        wp.ridge_thickness_top = max(wp.ridge_thickness_top,
-                                                  wp.MIN_RIDGE_THICKNESS_TOP)
-                        # if over max bound, set to max
-                        wp.ridge_thickness_top = min(wp.ridge_thickness_top,
-                                                  wp.MAX_RIDGE_THICKNESS_TOP)
-
-                    # ridge_thickness_bottom gene
-                    if gene == "ridge_thickness_bottom":
-                        wp.ridge_thickness_bottom = (
-                                wp.ridge_thickness_bottom + rand.gauss(0,
-                                                                       mut_effect_size))
-                        # if under min bound, set to min
-                        wp.ridge_thickness_bottom = max(
-                            wp.ridge_thickness_bottom, wp.MIN_RIDGE_THICKNESS_BOTTOM)
-                        # if over max bound, set to max
-                        wp.ridge_width_bottom = min(
-                            wp.ridge_thickness_bottom, wp.MAX_RIDGE_THICKNESS_BOTTOM)
+        for wp in self.walls:
+            wp.mutate(per_site_mut_rate, mut_effect_size, rand)
 
     # TODO KATE - func to construct from 2 parents with crossover (not for v1)
 

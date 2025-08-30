@@ -5,13 +5,13 @@ import src.Evolver as E
 
 
 class MockPhenotype:
-    def __init__(self, indiv_id, fitness_score):
+    def __init__(self, indiv_id, fitness_scores):
         self.indiv_id = indiv_id
-        self.fitness_score = fitness_score
+        self.fitness_scores = fitness_scores
 
     def make_offspring(self, new_id, rand):
         new_fit = {fitness: value+1 for fitness, value in
-                   self.fitness_score.items()}
+                   self.fitness_scores.items()}
         new_indiv = MockPhenotype(new_id, new_fit)
         return new_indiv
 
@@ -27,16 +27,16 @@ class NSGA2Test(unittest.TestCase):
         self.rand = random.Random(1)
         self.population = [
             # Should be rank 1
-            MockPhenotype(1, fitness_score={"1": 10, "2": 20, "3": 30}),
-            MockPhenotype(2, fitness_score={"1": 20, "2": 10, "3": 30}),
-            MockPhenotype(3, fitness_score={"1": 30, "2": 20, "3": 10}),
+            MockPhenotype(1, fitness_scores={"1": 10, "2": 20, "3": 30}),
+            MockPhenotype(2, fitness_scores={"1": 20, "2": 10, "3": 30}),
+            MockPhenotype(3, fitness_scores={"1": 30, "2": 20, "3": 10}),
             # Should be rank 2
-            MockPhenotype(4, fitness_score={"1": 100, "2": 200, "3": 300}),
-            MockPhenotype(5, fitness_score={"1": 200, "2": 100, "3": 300}),
+            MockPhenotype(4, fitness_scores={"1": 100, "2": 200, "3": 300}),
+            MockPhenotype(5, fitness_scores={"1": 200, "2": 100, "3": 300}),
             # Rank 3
-            MockPhenotype(6, fitness_score={"1": 999, "2": 999, "3": 999}),
+            MockPhenotype(6, fitness_scores={"1": 999, "2": 999, "3": 999}),
             # Added to rank 1 to ensure a non-inf crowding distance
-            MockPhenotype(7, fitness_score={"1": 15, "2": 15, "3": 25}),
+            MockPhenotype(7, fitness_scores={"1": 15, "2": 15, "3": 25}),
         ]
 
 
@@ -76,13 +76,13 @@ class NSGA2Test(unittest.TestCase):
             assert all(indiv.nsgaii_distance >= 0 for indiv in front)
 
             # Boundary individuals (extremes for any objective) must have inf
-            for obj in front[0].fitness_score.keys():
-                sorted_front = sorted(front, key=lambda x: x.fitness_score[obj])
+            for obj in front[0].fitness_scores.keys():
+                sorted_front = sorted(front, key=lambda x: x.fitness_scores[obj])
                 assert sorted_front[0].nsgaii_distance == float("inf")
                 assert sorted_front[-1].nsgaii_distance == float("inf")
 
             # If more individuals than objectives, at least one non-boundary exists, so we have finite CD
-            if len(front) > len(front[0].fitness_score):
+            if len(front) > len(front[0].fitness_scores):
                 assert any(indiv.nsgaii_distance < float("inf") for indiv in front)
 
     def test_dominates(self):

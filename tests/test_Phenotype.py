@@ -4,9 +4,8 @@ import unittest
 from src.Genotype import Genotype
 from src.Parameters import ParametersObject
 from src.Phenotype import Phenotype
-from src.WallPair import WallPair
 
-cfg = ParametersObject("/Users/kgskocelas/PycharmProjects/GENETIS-RHINO/src/config.toml")
+cfg = ParametersObject("../src/config.toml")
 
 class PhenotypeTest(unittest.TestCase):
     """
@@ -25,9 +24,25 @@ class PhenotypeTest(unittest.TestCase):
 
         self.assertIsInstance(p.genotype, Genotype)
         self.assertEqual(p.indv_id, "Kate")
-        self.assertEqual(p.parent_id, "None")
+        self.assertEqual(p.parent1_id, "None")
         self.assertEqual(p.generation_created, 0)
-        self.assertEqual(p.fitness_score, 880.3500822821234)
+        self.assertEqual(p.fitness_scores, {
+            'flare_length': 2.4030927323372038,
+            'waveguide_height': 877.9469895497862,
+            'waveguide_length': 787.3971570789527,
+            'waveguide_width': 329.56212316547953,
+            'wp0_angle': 44.58915783827469,
+            'wp0_ridge_height': 44.949106478873816,
+            'wp0_ridge_thickness_bottom': 2.834747652200631,
+            'wp0_ridge_thickness_top': 9.385958677423488,
+            'wp0_ridge_width_bottom': 78.87233511355132,
+            'wp0_ridge_width_top': 65.15929727227629,
+            'wp1_angle': 75.21885935278827,
+            'wp1_ridge_height': 43.27670679050534,
+            'wp1_ridge_thickness_bottom': 72.15400323407826,
+            'wp1_ridge_thickness_top': 44.538719405480144,
+            'wp1_ridge_width_bottom': 0.21060533511106927,
+            'wp1_ridge_width_top': 76.2280082457942})
 
     def test_make_offspring(self):
         """Tests the make_offspring function."""
@@ -42,7 +57,23 @@ class PhenotypeTest(unittest.TestCase):
         self.assertEqual(child.indv_id, "Oona")
         self.assertEqual(child.parent_id, "Kate")
         self.assertEqual(child.generation_created, 1)
-        self.assertEqual(child.fitness_score, 880.3086782506314)
+        self.assertEqual(child.fitness_scores, {
+            'wp0_angle': 44.58915783827469,
+            'wp1_angle': 75.21885935278827,
+            'flare_length': 2.5007170272643924,
+            'wp0_ridge_height': 44.949106478873816,
+            'wp1_ridge_height': 43.27670679050534,
+            'wp0_ridge_thickness_bottom': 2.8684239590974654,
+            'wp1_ridge_thickness_bottom': 72.15400323407826,
+            'wp0_ridge_thickness_top': 9.385958677423488,
+            'wp1_ridge_thickness_top': 44.31006947870848,
+            'wp0_ridge_width_bottom': 2.8684239590974654,
+            'wp1_ridge_width_bottom': 0.13803132555967296,
+            'wp0_ridge_width_top': 65.34636693312109,
+            'wp1_ridge_width_top': 76.43067117717526,
+            'waveguide_height': 877.807961223367,
+            'waveguide_length': 787.3971570789527,
+            'waveguide_width': 329.56212316547953})
 
 if __name__ == '__main__':
     unittest.main()

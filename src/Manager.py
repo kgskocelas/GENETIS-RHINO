@@ -1,12 +1,13 @@
 """Class for managing the evolution of a population of antennas."""
 import random
 
-from src.CalcHornSize import CalcHornSize   # dummy fitness func for
+from src.DummyFitnessFunc import DummyFitnessFunc   # dummy fitness func for
 # testing alpha version of software
 from src.Evolver import NSGA2
 from src.Genotype import Genotype
 from src.Parameters import ParametersObject
 from src.Phenotype import Phenotype
+from src.Analysis import Analysis
 
 
 class Manager:
@@ -80,7 +81,9 @@ def main() -> None:
     # 1. Randomly generates initial population
     manager.initialize_population(cfg)
     # analyze initial population
-    # TODO @EVAN add ^^^
+    #Analysis(manager.population).update(0)  # FIXME Analysis class doesn't
+    # work with Phenotype and Evolver class - expects to have variables it
+    # doesn't have
 
     for generation_num in range(1, num_generations):
         # 2. Selects individuals to replicate to the next generation,
@@ -88,9 +91,8 @@ def main() -> None:
         # population to the next generation.
         manager.evolve_one_gen(generation_num)
 
-
         # 3. Analyzer collects data on current state of population (to process and write to file)
-             # GROUP 3 - TODO @EVAN
+        Analysis(manager.population).update(generation_num)
 
 
 if __name__ == "__main__":

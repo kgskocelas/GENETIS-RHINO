@@ -23,7 +23,7 @@ class AnalysisTest(unittest.TestCase):
         phenotypes = [Phenotype(g, "Evan", "None", 0) for g in genotypes]
         for p in phenotypes:
             p.nsgaii_rank = r(0,10)
-            p.fitness_score = {"metric1": r(0,10),
+            p.fitness_scores = {"metric1": r(0, 10),
                             "metric2": r(0,10),
                             "metric3": r(0,10)}
 
@@ -40,7 +40,7 @@ class AnalysisTest(unittest.TestCase):
         """Test that the individuals with the lowest nsgaii rank are found (on the pareto front)."""
         analysis = self.make_analysis(10)
         lowest_rank = min(indv.nsgaii_rank for indv in analysis.population)
-        best_indvs = analysis.update_best_individual()
+        best_indvs = analysis.update_best_individuals()
         # Test that at least one best individual is found.
         self.assertGreaterEqual(len(best_indvs), 1)
         for best_indv in best_indvs:
@@ -52,12 +52,12 @@ class AnalysisTest(unittest.TestCase):
     def test_update_fitness(self) -> None:
         """Test that fitness statistics for a population generation are recorded correctly."""
         analysis = self.make_analysis(10)
-        fitness_table = analysis.update_fitness()
-        metrics = analysis.population[0].fitness_score.keys()
+        fitness_table = analysis.update_fitness_scores()
+        metrics = analysis.population[0].fitness_scores.keys()
         # Test that all the statistics were recorded.
         self.assertEqual(len(fitness_table), len(metrics)*2+1)
         for metric in metrics:
-            scores = [indv.fitness_score[metric] for indv in analysis.population]
+            scores = [indv.fitness_scores[metric] for indv in analysis.population]
             avg_score = sum(scores) / len(scores)
             max_score = max(scores)
             # Test that the average and maximum values are calculated as expected.

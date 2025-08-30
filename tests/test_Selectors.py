@@ -19,40 +19,43 @@ class NSGATournamentTest(unittest.TestCase):
         """Tests that the individual with the better rank is selected."""
         i1 = MockPhenotype(rank=1, distance=0.5)
         i2 = MockPhenotype(rank=2, distance=1.0)
+        population = [i1, i2]
 
         # Mock a random generator to always return the pop from sample
         rand = MagicMock()
         rand.sample.return_value = [i1, i2]
 
-        result = self.selector.select_one([i1, i2], rand)
+        result = self.selector.select_one(population, rand)
         self.assertIs(result, i1)
 
         i1.nsgaii_rank = 3
         i2.nsgaii_rank = 1
-        result = self.selector.select_one([i1, i2], rand)
+        result = self.selector.select_one(population, rand)
         self.assertIs(result, i2)
 
     def test_ranks_equal(self):
         """Tests that the individual with greater distance is selected when ranks are equal."""
         i1 = MockPhenotype(rank=1, distance=0.5)
         i2 = MockPhenotype(rank=1, distance=1.0)
+        population = [i1, i2]
 
         rand = MagicMock()
         rand.sample.return_value = [i1, i2]
 
-        result = self.selector.select_one([i1, i2], rand)
+        result = self.selector.select_one(population, rand)
         self.assertIs(result, i2)
 
     def test_random_tie_break(self):
         """Tests that a tie in rank and distance is resolved randomly."""
         i1 = MockPhenotype(rank=1, distance=1.0)
         i2 = MockPhenotype(rank=1, distance=1.0)
+        population = [i1, i2]
 
         rand = MagicMock()
         rand.sample.return_value = [i1, i2]
         rand.choice.return_value = i2
 
-        result = self.selector.select_one([i1, i2], rand)
+        result = self.selector.select_one(population, rand)
         self.assertIs(result, i2)
         rand.choice.assert_called_once_with([i1, i2])
 
