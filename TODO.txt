@@ -3,22 +3,20 @@
 -------------
 
 CODE:
-[ ] ALEX - func to write Genotype genes to CSV line
-[X] KATE - parameterize random number seed
-[ ] KATE - parameterize % of wall pairs to be generated without a ridge
+[ ] MAX & EVAN - edit code to make Analysis class work with Evolver class &
+Phenotype class
+
 
 TESTING:
-[ ] KATE - write Manager tests
-[ ] KATE - confirm sufficient unit test coverage (full project)
-[ ] KATE - end-to-end happy path integration test
-
-
+[ ] MAX & EVAN - update tests after updating code (see above)
+[ ] KATE - end-to-end happy path integration test (after above is working)
 
 -------------
 ** PHASE 2 **
 -------------
 
 CODE:
+[ ] KATE - parameterize % of wall pairs to be generated without a ridge
 [ ] KATE - Code simple crossover
 [ ] EMILY - phylogeny tracking
 
