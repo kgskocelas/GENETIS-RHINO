@@ -3,8 +3,8 @@
 import random
 from abc import ABC, abstractmethod
 
-from src.Phenotype import Phenotype
-from src.Selectors import NSGATournament
+from src.GENETIS_RHINO import ga_selectors
+from src.GENETIS_RHINO.phenotype import Phenotype
 
 
 class AbstractEvolver(ABC):
@@ -38,14 +38,12 @@ class NSGA2(AbstractEvolver):
         # Generate offspring
         offspring = []
         for i in range(pop_size):
-            parent1 = NSGATournament.select_one(population, rand)
+            parent1 = ga_selectors.NSGATournament.select_one(population, rand)
             # uncomment these lines for crossover
             #parent2 = NSGATournament.select_one(population, rand)
-            new_child_id = generation_num*pop_size + i
-            #child = parent1.make_offspring(new_child_id, parent2)
-            child = parent1.make_offspring(new_child_id, rand)
-            child.generation_created = generation_num
-
+            new_child_id = str(generation_num * pop_size + i)
+            child = parent1.make_offspring(new_child_id, generation_num,
+                                           rand)
             offspring.append(child)
 
         # Combine parents + offspring
@@ -63,7 +61,7 @@ class NSGA2(AbstractEvolver):
                 new_pop.extend(front[: pop_size - len(new_pop)])
                 break
 
-        return (new_pop)
+        return new_pop
 
 ### Helper functions for NSGAII
 def fast_non_dominated_sort(population: list) -> list[list]:
@@ -114,8 +112,8 @@ def dominates(p: Phenotype, q: Phenotype) -> bool:
     q (Phenotype): Second individual to compare
 
     """
-    p_better_or_equal = all(p.fitness[obj] <= q.fitness[obj] for obj in p.fitness)
-    p_strictly_better = any(p.fitness[obj] < q.fitness[obj] for obj in p.fitness)
+    p_better_or_equal = all(p.fitness_scores[obj] <= q.fitness_scores[obj] for obj in p.fitness_scores)
+    p_strictly_better = any(p.fitness_scores[obj] < q.fitness_scores[obj] for obj in p.fitness_scores)
     return p_better_or_equal and p_strictly_better
 
 def crowding_distance_assignment(front: list) -> None:
@@ -139,12 +137,12 @@ def crowding_distance_assignment(front: list) -> None:
         indiv.nsgaii_distance = 0.0
 
     # For every objective
-    for obj in front[0].fitness:
+    for obj in front[0].fitness_scores:
         # Sort the front for this objective
-        front.sort(key=lambda indiv: indiv.fitness[obj])
+        front.sort(key=lambda indiv: indiv.fitness_scores[obj])
         # Get the max and min for normalization
-        f_min = front[0].fitness[obj]
-        f_max = front[-1].fitness[obj]
+        f_min = front[0].fitness_scores[obj]
+        f_max = front[-1].fitness_scores[obj]
 
         # If equal we will get division by zero, so skip
         if f_max == f_min:
@@ -158,7 +156,7 @@ def crowding_distance_assignment(front: list) -> None:
         for i in range(1, len(front) - 1):
             if front[i].nsgaii_distance != float("inf"):
                 # Get the two closest points
-                prev_f = front[i - 1].fitness[obj]
-                next_f = front[i + 1].fitness[obj]
+                prev_f = front[i - 1].fitness_scores[obj]
+                next_f = front[i + 1].fitness_scores[obj]
                 # Assign normalized crowding distance
                 front[i].nsgaii_distance += (next_f - prev_f) / (f_max - f_min)

@@ -3,6 +3,9 @@ import copy
 import random
 from typing import Optional
 
+from src.GENETIS_RHINO.dummy_fitness_func import DummyFitnessFunc
+from src.GENETIS_RHINO.genotype import Genotype
+
 
 class Phenotype:
     """
@@ -15,17 +18,17 @@ class Phenotype:
     :type genotype: Genotype
     :param indv_id: The individual's unique ID.
     :type indv_id: str, optional
-    :param parent_id: The individual's parent's unique ID.
-    :type parent_id: str, optional
+    :param parent1_id: The individual's parent's unique ID.
+    :type parent1_id: str, optional
     :param generation_created: Which generation the individual was created.
     :type generation_created: int, optional
     :param fitness_score: The fitness score of the individual.
-    :type fitness_score: float, optional
+    :type fitness_scores: float, optional
     """
 
-    def __init__(self, genotype: object,
+    def __init__(self, genotype: Genotype,
                  indv_id: Optional[str],
-                 parent_id: Optional[str],
+                 parent1_id: Optional[str],
                  generation_created: Optional[int]) -> None:
         """
         Phenotype constructor.
@@ -36,41 +39,45 @@ class Phenotype:
         :type genotype: Genotype
         :param indv_id: The individual's unique ID.
         :type indv_id: str, optional
-        :param parent_id: The individual's parent's unique ID.
-        :type parent_id: str, optional
+        :param parent1_id: The individual's parent's unique ID.
+        :type parent1_id: str, optional
         :param generation_created: Which generation the individual was created.
         :type generation_created: int, optional
         :rtype: None
         """
         self.genotype = genotype
         self.indv_id = indv_id
-        self.parent_id = parent_id
+        self.parent1_id = parent1_id
         self.generation_created = generation_created
-        self.fitness_score = None # TODO replace with calc_fitness_score call
+        self.fitness_scores = DummyFitnessFunc(genotype).getFitnessScores()
 
-    def make_offspring(self, new_id: int, rand: random.Random) -> object:
+    def make_offspring(self, new_id: str, generation_num: int,
+                       rand: random.Random) -> object:
         """
         Make offspring.
 
-        Makes an offspring from the individual Genotype this is called on.
+        Makes an offspring from the individual Phenotype this is called on.
 
-        :param per_site_mut_rate: The % chance any given variable in the Genotype will be mutated.
-        :type per_site_mut_rate: float
-        :param mut_effect_size: The mutation amplitude when a mutation takes place.
-        :type mut_effect_size: float
+        :param new_id: The new individual's unique ID.
+        :type new_id: str
+        :param generation_num: The current generation number.
+        :type generation_num: int
         :param rand: Random number generator object.
         :type rand: random.Random
         :rtype: None
         """
         # make a copy of parent 1 to be the offspring
         offspring = copy.deepcopy(self)
+
         # set fields for new_indiv
-        offspring.parent_id = self.indv_id
+        offspring.parent1_id = self.indv_id
         offspring.indv_id = new_id
+        offspring.generation_created = generation_num
 
         # mutate offspring
         offspring.genotype.mutate(rand)
 
-        # TODO should evaluate fitness
-
+        # calc new fitness score  TODO Replace with actual fitness calc
+        offspring.fitness_scores = DummyFitnessFunc(
+            offspring.genotype).getFitnessScores()
         return offspring

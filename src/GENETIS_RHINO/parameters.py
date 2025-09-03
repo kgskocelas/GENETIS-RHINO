@@ -6,17 +6,34 @@ except ModuleNotFoundError:
     from tomli import load
 
 known_parameters = {
+    "random_num_seed": int,
     "population_size": int,
     "num_generations": int,
     "per_site_mut_rate": float,
     "mut_effect_size": float,
     "selection_scheme": str,
-    "MIN_HEIGHT": float,
-    "MAX_HEIGHT": float,
+    "percent_no_ridge_at_start": float,
+    "NUM_WALL_PAIRS": int,
+    "MIN_FLARE_LENGTH": float,
+    "MAX_FLARE_LENGTH": float,
     "MIN_WAVEGUIDE_HEIGHT": float,
     "MAX_WAVEGUIDE_HEIGHT": float,
     "MIN_WAVEGUIDE_LENGTH": float,
     "MAX_WAVEGUIDE_LENGTH": float,
+    "MIN_WAVEGUIDE_WIDTH": float,
+    "MAX_WAVEGUIDE_WIDTH": float,
+    "MIN_ANGLE": float,
+    "MAX_ANGLE": float,
+    "MIN_RIDGE_HEIGHT": float,
+    "MAX_RIDGE_HEIGHT": float,
+    "MIN_RIDGE_WIDTH_TOP": float,
+    "MAX_RIDGE_WIDTH_TOP": float,
+    "MIN_RIDGE_WIDTH_BOTTOM": float,
+    "MAX_RIDGE_WIDTH_BOTTOM": float,
+    "MIN_RIDGE_THICKNESS_TOP": float,
+    "MAX_RIDGE_THICKNESS_TOP": float,
+    "MIN_RIDGE_THICKNESS_BOTTOM": float,
+    "MAX_RIDGE_THICKNESS_BOTTOM": float,
 }
 
 class ParametersObject:

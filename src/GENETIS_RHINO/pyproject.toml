@@ -1,3 +1,8 @@
+[project]
+name = "GENETIS-RHINO"
+version = "0.0.1"
+readme = "README.md"
+
 [tool.ruff]
 src = ["src"]
 target-version = "py311"
@@ -69,3 +74,6 @@ ignore = [
 
 [tool.ruff.lint.pylint]
 max-args = 10
+
+[tool.setuptools.packages]
+find = {}  # Scanning implicit namespaces is active by default

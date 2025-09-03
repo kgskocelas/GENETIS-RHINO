@@ -3,7 +3,7 @@
 import random
 from abc import ABC, abstractmethod
 
-from src.Phenotype import Phenotype
+from src.GENETIS_RHINO.phenotype import Phenotype
 
 
 class AbstractSelector(ABC):
@@ -17,7 +17,8 @@ class AbstractSelector(ABC):
 class NSGATournament(AbstractSelector):
     """Implements binary tournament selection."""
 
-    def select_one(self, selection_pool: list[Phenotype], rand: random.Random) -> Phenotype:
+    @staticmethod
+    def select_one(selection_pool: list[Phenotype], rand: random.Random) -> Phenotype:
         """Choose between two random individuals based on rank, then crowding distance."""
         i1, i2 = rand.sample(selection_pool, 2)
 
