@@ -2,11 +2,11 @@
 import pathlib
 import random
 
-from Analysis import Analysis
-from Evolver import NSGA2
-from Genotype import Genotype
-from Parameters import ParametersObject
-from Phenotype import Phenotype
+from analysis import Analysis
+from evolver import NSGA2
+from genotype import Genotype
+from parameters import ParametersObject
+from phenotype import Phenotype
 
 
 class Manager:

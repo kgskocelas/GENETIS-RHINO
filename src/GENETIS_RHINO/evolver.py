@@ -2,9 +2,9 @@
 
 import random
 from abc import ABC, abstractmethod
+from selectors import NSGATournament
 
-from Phenotype import Phenotype
-from Selectors import NSGATournament
+from phenotype import Phenotype
 
 
 class AbstractEvolver(ABC):

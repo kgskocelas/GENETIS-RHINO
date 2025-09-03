@@ -8,8 +8,8 @@ This module provides:
 import random
 from typing import Optional
 
-from Parameters import ParametersObject
-from WallPair import WallPair
+from parameters import ParametersObject
+from wall_pair import WallPair
 
 
 class Genotype:

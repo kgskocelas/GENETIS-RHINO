@@ -2,7 +2,7 @@
 from pathlib import Path
 
 import pandas as pd
-from Phenotype import Phenotype
+from phenotype import Phenotype
 
 
 class Analysis:

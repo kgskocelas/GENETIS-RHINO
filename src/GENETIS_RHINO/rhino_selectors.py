@@ -3,7 +3,7 @@
 import random
 from abc import ABC, abstractmethod
 
-from Phenotype import Phenotype
+from phenotype import Phenotype
 
 
 class AbstractSelector(ABC):

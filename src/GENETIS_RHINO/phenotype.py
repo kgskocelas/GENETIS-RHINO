@@ -3,8 +3,8 @@ import copy
 import random
 from typing import Optional
 
-from DummyFitnessFunc import DummyFitnessFunc
-from Genotype import Genotype
+from dummy_fitness_func import DummyFitnessFunc
+from genotype import Genotype
 
 
 class Phenotype:

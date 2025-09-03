@@ -2,8 +2,8 @@ import random
 import unittest
 import pathlib
 
-from src.GENETIS_RHINO.Parameters import ParametersObject
-from src.GENETIS_RHINO.WallPair import WallPair
+from src.GENETIS_RHINO.parameters import ParametersObject
+from src.GENETIS_RHINO.wall_pair import WallPair
 
 
 class WallPairTest(unittest.TestCase):
