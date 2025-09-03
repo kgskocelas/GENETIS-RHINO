@@ -1,5 +1,5 @@
 """Dummy fittness func for alpha version of software"""
-from src.Genotype import Genotype
+from Genotype import Genotype
 
 
 class DummyFitnessFunc:

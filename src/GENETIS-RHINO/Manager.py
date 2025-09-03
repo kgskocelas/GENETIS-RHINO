@@ -1,13 +1,13 @@
 """Class for managing the evolution of a population of antennas."""
 import random
 
-from src.DummyFitnessFunc import DummyFitnessFunc   # dummy fitness func for
+from DummyFitnessFunc import DummyFitnessFunc   # dummy fitness func for
 # testing alpha version of software
-from src.Evolver import NSGA2
-from src.Genotype import Genotype
-from src.Parameters import ParametersObject
-from src.Phenotype import Phenotype
-from src.Analysis import Analysis
+from Evolver import NSGA2
+from Genotype import Genotype
+from Parameters import ParametersObject
+from Phenotype import Phenotype
+from Analysis import Analysis
 
 
 class Manager:

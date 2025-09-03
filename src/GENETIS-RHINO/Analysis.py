@@ -2,9 +2,8 @@
 from pathlib import Path
 
 import pandas as pd
-from pandas import DataFrame
 
-from src.Phenotype import Phenotype
+from Phenotype import Phenotype
 
 
 class Analysis:

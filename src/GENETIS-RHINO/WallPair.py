@@ -9,7 +9,7 @@ This module provides:
 import random
 from typing import Optional
 
-from src.Parameters import ParametersObject
+from Parameters import ParametersObject
 
 
 class WallPair:
