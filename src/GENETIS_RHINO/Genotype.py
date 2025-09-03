@@ -44,6 +44,8 @@ class Genotype:
         """
         self.cfg = cfg
 
+        self.NUM_WALL_PAIRS = cfg.NUM_WALL_PAIRS
+
         # Logical constraint constants
         self.MIN_FLARE_LENGTH = float(cfg.MIN_FLARE_LENGTH)
         self.MAX_FLARE_LENGTH = float(cfg.MAX_FLARE_LENGTH)
@@ -71,7 +73,7 @@ class Genotype:
         self.waveguide_width = waveguide_width
         self.walls = walls
 
-    def generate(self, with_ridge: bool, num_wall_pairs: int, rand: (
+    def generate(self, with_ridge: bool, rand: (
         random.Random)) -> (
             object):
         """
@@ -107,9 +109,9 @@ class Genotype:
 
         # generate list of walls with randomly generated values
         if with_ridge:
-            walls = WallPair(self.cfg).generate_walls_with_ridge(num_wall_pairs, rand)
+            walls = WallPair(self.cfg).generate_walls_with_ridge(rand)
         else:
-            walls = WallPair(self.cfg).generate_walls_without_ridge(num_wall_pairs, rand)
+            walls = WallPair(self.cfg).generate_walls_without_ridge(rand)
 
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)

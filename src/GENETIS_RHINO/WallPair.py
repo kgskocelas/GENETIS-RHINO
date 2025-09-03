@@ -76,6 +76,8 @@ class WallPair:
         # config
         self.cfg = cfg
 
+        self.NUM_WALL_PAIRS = int(cfg.NUM_WALL_PAIRS)
+
         # Logical constraint constants
         self.MIN_ANGLE = float(cfg.MIN_ANGLE)  # degrees; exclusive
         self.MAX_ANGLE = float(cfg.MAX_ANGLE)  # degrees; inclusive
@@ -192,49 +194,42 @@ class WallPair:
 
         return wp
 
-    def generate_walls_with_ridge(self, num_wall_pairs: int, rand: random.Random) -> list:
+    def generate_walls_with_ridge(self, rand: random.Random) -> list:
         """
         Generates a list of randomly generated WallPair objects with a ridge.
 
-        :param num_wall_pairs: The number of wall pairs to generate. Must be greater than zero.
-        :type num_wall_pairs: int
         :param rand: The random number generator.
         :type rand: class:'random.Random'
         :return: A list of randomly generated WallPair objects.
         :rtype: list[WallPair object]
         """
         # Throw a ValueError if num_wall_pairs is <= 0
-        if num_wall_pairs <= 0:
+        if self.NUM_WALL_PAIRS <= 0:
             raise ValueError("num_wall_pairs must be greater than zero.")
 
         # Generate random wall pairs and add them to a list
-        walls = []
-        for _ in range(num_wall_pairs):
-            walls.append(WallPair(self.cfg).generate_with_ridge(rand))
+        walls = [WallPair(self.cfg).generate_with_ridge(rand) for _ in
+                 range(self.NUM_WALL_PAIRS)]
         return walls
 
-    def generate_walls_without_ridge(self, num_wall_pairs: int,
+    def generate_walls_without_ridge(self,
                                    rand: random.Random) -> list:
         """
         Generates a list of randomly generated WallPair objects wihtout a
         ridge.
 
-        :param num_wall_pairs: The number of wall pairs to generate. Must be greater than zero.
-        :type num_wall_pairs: int
         :param rand: The random number generator.
         :type rand: class:'random.Random'
         :return: A list of randomly generated WallPair objects.
         :rtype: list[WallPair object]
         """
-        
         # Throw a ValueError if num_wall_pairs is <= 0
-        if num_wall_pairs <= 0:
+        if self.NUM_WALL_PAIRS <= 0:
             raise ValueError("num_wall_pairs must be greater than zero.")
 
         # Generate random wall pairs and add them to a list
-        walls = []
-        for _ in range(num_wall_pairs):
-            walls.append(WallPair(self.cfg).generate_without_ridge(rand))
+        walls = [WallPair(self.cfg).generate_without_ridge(rand) for _ in
+                 range(self.NUM_WALL_PAIRS)]
         return walls
 
     def mutate(self, per_site_mut_rate: float,

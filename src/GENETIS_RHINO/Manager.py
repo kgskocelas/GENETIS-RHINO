@@ -1,5 +1,6 @@
 """Class for managing the evolution of a population of antennas."""
 import random
+import pathlib
 
 from Evolver import NSGA2
 from Genotype import Genotype
@@ -48,7 +49,7 @@ class Manager:
         # generate starting individuals with ridges
         for individual in range(make_with_ridge):
             # create new random Genotype with 4 sides
-            g = Genotype(cfg).generate(True, int(cfg.NUM_WALL_PAIRS),
+            g = Genotype(cfg).generate(True,
                                        self.rand)
 
             # assign phenotype to genotype
@@ -85,12 +86,11 @@ class Manager:
                                                     generation_num, self.rand)
         self.population = next_gen_pop
 
-    # TODO method to return best individual in population
-
 def main() -> None:
     """Main function."""
     # 0. Initialize manager
-    cfg = ParametersObject("config.toml")
+    cfg = ParametersObject(pathlib.Path(
+        __file__).parent.parent/"GENETIS_RHINO/config.toml")
     manager = Manager(cfg)
 
     num_generations = int(cfg.num_generations)
