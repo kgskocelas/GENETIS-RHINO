@@ -1,7 +1,7 @@
 import random
 import unittest
 
-import src.Evolver as E
+import src.GENETIS_RHINO.evolver as E
 
 
 class MockPhenotype:

@@ -1,11 +1,13 @@
 import random
 import unittest
+import pathlib
 
-from src.Genotype import Genotype
-from src.Parameters import ParametersObject
-from src.Phenotype import Phenotype
+from src.GENETIS_RHINO.phenotype import Genotype
+from src.GENETIS_RHINO.parameters import ParametersObject
+from src.GENETIS_RHINO.phenotype import Phenotype
 
-cfg = ParametersObject("src/config.toml")
+cfg = ParametersObject(pathlib.Path(
+        __file__).parent.parent/"src/GENETIS_RHINO/config.toml")
 
 class PhenotypeTest(unittest.TestCase):
     """

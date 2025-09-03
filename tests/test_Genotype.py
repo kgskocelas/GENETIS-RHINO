@@ -1,9 +1,10 @@
 import unittest
 import random
+import pathlib
 
-from src.Genotype import Genotype
-from src.Parameters import ParametersObject
-from src.WallPair import WallPair
+from src.GENETIS_RHINO.genotype import Genotype
+from src.GENETIS_RHINO.parameters import ParametersObject
+from src.GENETIS_RHINO.wall_pair import WallPair
 
 
 class GenotypeTest(unittest.TestCase):
@@ -14,7 +15,8 @@ class GenotypeTest(unittest.TestCase):
     MUT_AMPLITUDE = 0.1      # mutation amplitude
 
     # config for all tests
-    cfg = ParametersObject("src/config.toml")
+    cfg = ParametersObject(pathlib.Path(
+        __file__).parent.parent / "src/GENETIS_RHINO/config.toml")
     cfg.per_site_mut_rate = PER_SITE_MUT_RATE
     cfg.mut_effect_size = MUT_AMPLITUDE
 

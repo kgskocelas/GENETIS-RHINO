@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
-from src.Selectors import NSGATournament 
+
+from src.GENETIS_RHINO.ga_selectors import NSGATournament
 
 class MockPhenotype:
     def __init__(self, rank, distance):
