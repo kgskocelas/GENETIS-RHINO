@@ -215,8 +215,7 @@ class WallPair:
     def generate_walls_without_ridge(self,
                                    rand: random.Random) -> list:
         """
-        Generates a list of randomly generated WallPair objects wihtout a
-        ridge.
+        Generates a list of random WallPair objects wihtout a ridge.
 
         :param rand: The random number generator.
         :type rand: class:'random.Random'
