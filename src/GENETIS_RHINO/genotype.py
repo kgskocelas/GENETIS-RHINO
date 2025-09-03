@@ -8,8 +8,8 @@ This module provides:
 import random
 from typing import Optional
 
-from parameters import ParametersObject
-from wall_pair import WallPair
+from src.GENETIS_RHINO.parameters import ParametersObject
+from src.GENETIS_RHINO.wall_pair import WallPair
 
 
 class Genotype:
@@ -144,7 +144,7 @@ class Genotype:
                                        self.MAX_WAVEGUIDE_WIDTH)
 
         # generate list of walls with randomly generated values
-        walls = WallPair(self.cfg).generate_walls_withour_ridge(rand)
+        walls = WallPair(self.cfg).generate_walls_without_ridge(rand)
 
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)

@@ -9,7 +9,7 @@ This module provides:
 import random
 from typing import Optional
 
-from parameters import ParametersObject
+from src.GENETIS_RHINO.parameters import ParametersObject
 
 
 class WallPair:

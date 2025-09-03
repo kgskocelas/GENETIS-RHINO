@@ -2,11 +2,11 @@
 import pathlib
 import random
 
-from analysis import Analysis
-from evolver import NSGA2
-from genotype import Genotype
-from parameters import ParametersObject
-from phenotype import Phenotype
+from src.GENETIS_RHINO.analysis import Analysis
+from src.GENETIS_RHINO.evolver import NSGA2
+from src.GENETIS_RHINO.genotype import Genotype
+from src.GENETIS_RHINO.parameters import ParametersObject
+from src.GENETIS_RHINO.phenotype import Phenotype
 
 
 class Manager:

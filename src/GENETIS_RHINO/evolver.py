@@ -2,9 +2,9 @@
 
 import random
 from abc import ABC, abstractmethod
-from selectors import NSGATournament
+import src.GENETIS_RHINO.ga_selectors as ga_selectors
 
-from phenotype import Phenotype
+from src.GENETIS_RHINO.phenotype import Phenotype
 
 
 class AbstractEvolver(ABC):
@@ -38,7 +38,7 @@ class NSGA2(AbstractEvolver):
         # Generate offspring
         offspring = []
         for i in range(pop_size):
-            parent1 = NSGATournament.select_one(population, rand)
+            parent1 = ga_selectors.NSGATournament.select_one(population, rand)
             # uncomment these lines for crossover
             #parent2 = NSGATournament.select_one(population, rand)
             new_child_id = str(generation_num * pop_size + i)

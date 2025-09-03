@@ -49,7 +49,7 @@ class PhenotypeTest(unittest.TestCase):
     def test_make_offspring(self):
         """Tests the make_offspring function."""
         # build valid parent phenotype
-        g = Genotype(cfg).generate(2, random.Random(1))
+        g = Genotype(cfg).generate_without_ridge(random.Random(1))
         parent = Phenotype(g, "Kate", "None", 0)
 
         # make a single offspring via asexual reproduction

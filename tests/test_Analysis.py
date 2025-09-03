@@ -15,13 +15,14 @@ class AnalysisTest(unittest.TestCase):
 
     def make_analysis(self, population_size: int) -> Analysis:
         """Make a population of Phenotypes to be used by other test methods in this class."""
-        g = Genotype(cfg).generate(2, random.Random(1))
+        g = Genotype(cfg).generate_without_ridge(random.Random(1))
         # Build a valid Phenotype object.
         p = Phenotype(g, "Jessie", "None", 0)
         p = Phenotype(g, "James", "None", 0)
 
         r = random.randint
-        genotypes = [Genotype(cfg).generate(2, random.Random(1)) for _ in range(population_size)]
+        genotypes = [Genotype(cfg).generate_without_ridge(random.Random(1)) for _ in
+                     range(population_size)]
         phenotypes = [Phenotype(g, "Evan", "None", 0) for g in genotypes]
         for p in phenotypes:
             p.nsgaii_rank = r(0,10)

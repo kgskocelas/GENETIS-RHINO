@@ -1,8 +1,8 @@
 """Record the best individuals and fitness score statistics for each generation of Phenotypes."""
 from pathlib import Path
-
 import pandas as pd
-from phenotype import Phenotype
+
+from src.GENETIS_RHINO.phenotype import Phenotype
 
 
 class Analysis:

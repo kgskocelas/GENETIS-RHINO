@@ -3,7 +3,7 @@
 import random
 from abc import ABC, abstractmethod
 
-from phenotype import Phenotype
+from src.GENETIS_RHINO.phenotype import Phenotype
 
 
 class AbstractSelector(ABC):

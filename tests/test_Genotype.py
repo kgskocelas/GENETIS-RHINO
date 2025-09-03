@@ -24,7 +24,7 @@ class GenotypeTest(unittest.TestCase):
         """Tests the Genotype constructor with valid inputs."""
         # Make a list of 2 WallPair objects
         rand = random.Random(self.SEED)
-        walls = WallPair(self.cfg).generate_walls_with_ridge(2, rand)
+        walls = WallPair(self.cfg).generate_walls_with_ridge(rand)
 
         # Build genotype
         g = Genotype(self.cfg, 1.0,2.0,3.0, 4.0, walls)
@@ -50,7 +50,7 @@ class GenotypeTest(unittest.TestCase):
     def test_generate(self):
         """Tests Genotype generation with valid inputs."""
         rand = random.Random(GenotypeTest.SEED)
-        g = Genotype(self.cfg).generate(1, rand)
+        g = Genotype(self.cfg).generate_with_ridge(rand)
 
         self.assertEqual(g.flare_length, 2.4030927323372038)
         self.assertEqual(g.waveguide_height, 877.9469895497862)
@@ -61,13 +61,13 @@ class GenotypeTest(unittest.TestCase):
     def test_mutate(self):
         """Tests the mutate method."""
         rand = random.Random(self.SEED)
-        g = Genotype(self.cfg).generate(1, rand)
+        g = Genotype(self.cfg).generate_without_ridge(rand)
         g.mutate(rand)
 
-        self.assertEqual(g.flare_length, 2.2484849978761154)
-        self.assertEqual(g.waveguide_height, 878.016485526302)
-        self.assertEqual(g.waveguide_length, 787.3843368081616)
-        self.assertEqual(g.waveguide_width, 329.4911949506724)
+        self.assertEqual(g.flare_length, 2.605755663718255)
+        self.assertEqual(g.waveguide_height, 877.8744155402347)
+        self.assertEqual(g.waveguide_length, 787.168507152181)
+        self.assertEqual(g.waveguide_width, 329.5012478420334)
 
 
 if __name__ == '__main__':
