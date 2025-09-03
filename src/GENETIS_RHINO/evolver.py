@@ -2,8 +2,8 @@
 
 import random
 from abc import ABC, abstractmethod
-import src.GENETIS_RHINO.ga_selectors as ga_selectors
 
+from src.GENETIS_RHINO import ga_selectors
 from src.GENETIS_RHINO.phenotype import Phenotype
 
 
