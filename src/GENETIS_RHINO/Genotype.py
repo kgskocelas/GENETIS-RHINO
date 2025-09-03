@@ -73,16 +73,14 @@ class Genotype:
         self.waveguide_width = waveguide_width
         self.walls = walls
 
-    def generate(self, with_ridge: bool, rand: (
+    def generate_with_ridge(self, rand: (
         random.Random)) -> (
             object):
         """
-        Generate Genotype.
+        Generate random Genotype with ridge.
 
-        Makes a Genotype object with randomly generated genes.
+        Makes a Genotype object with randomly generated genes and ridge.
 
-        :param with_ridge: bool True if generating with a ridge
-        :type with_ridge: bool
         :param num_wall_pairs: number of WallPair objects
         :type num_wall_pairs: int
         :param rand: Random number generator object.
@@ -108,10 +106,45 @@ class Genotype:
                                        self.MAX_WAVEGUIDE_WIDTH)
 
         # generate list of walls with randomly generated values
-        if with_ridge:
-            walls = WallPair(self.cfg).generate_walls_with_ridge(rand)
-        else:
-            walls = WallPair(self.cfg).generate_walls_without_ridge(rand)
+        walls = WallPair(self.cfg).generate_walls_with_ridge(rand)
+
+        return Genotype(self.cfg, flare_length, waveguide_height,
+                        waveguide_length, waveguide_width, walls)
+
+    def generate_without_ridge(self, rand: (
+        random.Random)) -> (
+            object):
+        """
+        Generate random Genotype with ridge.
+
+        Makes a Genotype object with randomly generated genes and ridge.
+
+        :param num_wall_pairs: number of WallPair objects
+        :type num_wall_pairs: int
+        :param rand: Random number generator object.
+        :type rand: random.Random
+        :return: Genotype object
+        :rtype: Genotype
+        """
+        # generate valid random flare_length
+        flare_length = rand.uniform(self.MIN_FLARE_LENGTH,
+                                    self.MAX_FLARE_LENGTH)
+
+
+        # generate valid random waveguide_height
+        waveguide_height = rand.uniform(self.MIN_WAVEGUIDE_HEIGHT,
+                                         self.MAX_WAVEGUIDE_HEIGHT)
+
+        # generate valid random waveguide_length
+        waveguide_length = rand.uniform(self.MIN_WAVEGUIDE_LENGTH,
+                                         self.MAX_WAVEGUIDE_LENGTH)
+
+        # generate valid random waveguide_width
+        waveguide_width = rand.uniform(self.MIN_WAVEGUIDE_WIDTH,
+                                       self.MAX_WAVEGUIDE_WIDTH)
+
+        # generate list of walls with randomly generated values
+        walls = WallPair(self.cfg).generate_walls_withour_ridge(rand)
 
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)

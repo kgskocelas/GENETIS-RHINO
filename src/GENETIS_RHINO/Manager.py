@@ -49,8 +49,7 @@ class Manager:
         # generate starting individuals with ridges
         for individual in range(make_with_ridge):
             # create new random Genotype with 4 sides
-            g = Genotype(cfg).generate(True,
-                                       self.rand)
+            g = Genotype(cfg).generate_with_ridge(self.rand)
 
             # assign phenotype to genotype
             p = Phenotype(g, str(individual), "None", initial_generation_num)
@@ -61,8 +60,7 @@ class Manager:
         # generate starting individuals without ridges
         for individual in range(make_without_ridge):
             # create new random Genotype with 4 sides
-            g = Genotype(cfg).generate(False, int(cfg.NUM_WALL_PAIRS),
-                                       self.rand)
+            g = Genotype(cfg).generate_without_ridge(self.rand)
 
             # assign phenotype to genotype
             p = Phenotype(g, str(individual), "None", initial_generation_num)
