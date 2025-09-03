@@ -1,6 +1,7 @@
 """Record the best individuals and fitness score statistics for each generation of Phenotypes."""
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
 
 from Phenotype import Phenotype
 
