@@ -22,7 +22,7 @@ class GenotypeTest(unittest.TestCase):
         """Tests the Genotype constructor with valid inputs."""
         # Make a list of 2 WallPair objects
         rand = random.Random(self.SEED)
-        walls = WallPair(self.cfg).generate_list(2, rand)
+        walls = WallPair(self.cfg).generate_walls_with_ridge(2, rand)
 
         # Build genotype
         g = Genotype(self.cfg, 1.0,2.0,3.0, 4.0, walls)

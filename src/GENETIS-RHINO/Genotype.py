@@ -71,14 +71,18 @@ class Genotype:
         self.waveguide_width = waveguide_width
         self.walls = walls
 
-    def generate(self, num_wall_pairs: int, rand: random.Random) -> object:
+    def generate(self, with_ridge: bool, num_wall_pairs: int, rand: (
+        random.Random)) -> (
+            object):
         """
         Generate Genotype.
 
         Makes a Genotype object with randomly generated genes.
 
+        :param with_ridge: bool True if generating with a ridge
+        :type with_ridge: bool
         :param num_wall_pairs: number of WallPair objects
-        :param num_wall_pairs: int
+        :type num_wall_pairs: int
         :param rand: Random number generator object.
         :type rand: random.Random
         :return: Genotype object
@@ -102,7 +106,10 @@ class Genotype:
                                        self.MAX_WAVEGUIDE_WIDTH)
 
         # generate list of walls with randomly generated values
-        walls = WallPair(self.cfg).generate_list(num_wall_pairs, rand)
+        if with_ridge:
+            walls = WallPair(self.cfg).generate_walls_with_ridge(num_wall_pairs, rand)
+        else:
+            walls = WallPair(self.cfg).generate_walls_without_ridge(num_wall_pairs, rand)
 
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)
@@ -170,5 +177,3 @@ class Genotype:
             wp.mutate(per_site_mut_rate, mut_effect_size, rand)
 
     # TODO KATE - func to construct from 2 parents with crossover (not for v1)
-
-    # TODO ALEX - func to write Genotype genes to CSV line

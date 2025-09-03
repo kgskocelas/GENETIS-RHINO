@@ -12,6 +12,7 @@ known_parameters = {
     "per_site_mut_rate": float,
     "mut_effect_size": float,
     "selection_scheme": str,
+    "percent_no_ridge_at_start": float,
     "NUM_WALL_PAIRS": int,
     "MIN_FLARE_LENGTH": float,
     "MAX_FLARE_LENGTH": float,

@@ -42,9 +42,28 @@ class Manager:
         pop_size = int(cfg.population_size)
         initial_generation_num = 0
 
-        for individual in range(pop_size):
+        # calculate how many individuals with and without ridges to generate
+        make_without_ridge = int(pop_size * float(
+            cfg.percent_no_ridge_at_start))
+        make_with_ridge = pop_size - make_without_ridge
+
+        # generate starting individuals with ridges
+        for individual in range(make_with_ridge):
             # create new random Genotype with 4 sides
-            g = Genotype(cfg).generate(int(cfg.NUM_WALL_PAIRS), self.rand)
+            g = Genotype(cfg).generate(True, int(cfg.NUM_WALL_PAIRS),
+                                       self.rand)
+
+            # assign phenotype to genotype
+            p = Phenotype(g, str(individual), "None", initial_generation_num)
+
+            # append phenotype to population
+            self.population.append(p)
+
+        # generate starting individuals without ridges
+        for individual in range(make_without_ridge):
+            # create new random Genotype with 4 sides
+            g = Genotype(cfg).generate(False, int(cfg.NUM_WALL_PAIRS),
+                                       self.rand)
 
             # assign phenotype to genotype
             p = Phenotype(g, str(individual), "None", initial_generation_num)

@@ -5,6 +5,8 @@ num_generations = 3
 per_site_mut_rate = 0.3
 mut_effect_size = 0.1
 selection_scheme = "NSGAII"
+percent_no_ridge_at_start = 0.1  # the % of indiv generated w/ no ridge when
+                                    # generating a new starting population
 
 ### Individual parameters
 

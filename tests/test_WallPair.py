@@ -68,7 +68,7 @@ class WallPairTest(unittest.TestCase):
         randomly generated WallPair objects.
         """
         rand = random.Random(WallPairTest.SEED)
-        walls = WallPair(self.cfg).generate_list(2, rand)
+        walls = WallPair(self.cfg).generate_walls_with_ridge(2, rand)
 
         self.assertEqual(len(walls), 2)
         self.assertIsInstance(walls[0], WallPair)

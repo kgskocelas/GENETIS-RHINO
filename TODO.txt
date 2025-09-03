@@ -1,23 +1,10 @@
 -------------
-** PHASE 1 **
--------------
-
-CODE:
-[ ] MAX & EVAN - edit code to make Analysis class work with Evolver class &
-Phenotype class
-
-
-TESTING:
-[ ] MAX & EVAN - update tests after updating code (see above)
-[ ] KATE - end-to-end happy path integration test (after above is working)
-
--------------
 ** PHASE 2 **
 -------------
-
 CODE:
 [ ] KATE - parameterize % of wall pairs to be generated without a ridge
 [ ] KATE - Code simple crossover
+[ ] ??? - Switch from dummy fitness function to real fitness function
 [ ] EMILY - phylogeny tracking
 
 TESTING:
