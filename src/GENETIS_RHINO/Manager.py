@@ -1,12 +1,12 @@
 """Class for managing the evolution of a population of antennas."""
-import random
 import pathlib
+import random
 
+from Analysis import Analysis
 from Evolver import NSGA2
 from Genotype import Genotype
 from Parameters import ParametersObject
 from Phenotype import Phenotype
-from Analysis import Analysis
 
 
 class Manager:
