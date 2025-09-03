@@ -226,6 +226,7 @@ class WallPair:
         :return: A list of randomly generated WallPair objects.
         :rtype: list[WallPair object]
         """
+        
         # Throw a ValueError if num_wall_pairs is <= 0
         if num_wall_pairs <= 0:
             raise ValueError("num_wall_pairs must be greater than zero.")

@@ -1,17 +1,16 @@
-"""Dummy fittness func for alpha version of software"""
+"""Dummy fittness func for alpha version of software."""
 from Genotype import Genotype
 
 
 class DummyFitnessFunc:
-    """DummyFitnessFunc class that turns genotype parameters into dictionary
-    of fitness scores. The bigger the score the higher the fitness on that metric."""
+    """Turns genotype parameters into dictionary of fitness scores."""
 
     def __init__(self, genotype: Genotype) -> None:
-        """constructor"""
+        """Constructor."""
         self.fitness_scores = { "flare_length": genotype.flare_length,
                                 "waveguide_height": genotype.waveguide_height,
                                 "waveguide_length": genotype.waveguide_length,
-                                "waveguide_width": genotype.waveguide_width
+                                "waveguide_width": genotype.waveguide_width,
                                 }
         i = 0
         for wp in genotype.walls:
@@ -33,9 +32,8 @@ class DummyFitnessFunc:
             key = "wp" + str(i) + "_ridge_thickness_bottom"
             self.fitness_scores[key] = wp.ridge_thickness_bottom
 
-            i += 1
+            i = i + 1
 
     def getFitnessScores(self) -> dict:
-        """Returns dict of dummy fitness scores for alpha version of
-        software."""
+        """Returns dict of dummy fitness scores."""
         return self.fitness_scores

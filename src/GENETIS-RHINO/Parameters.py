@@ -33,7 +33,7 @@ known_parameters = {
     "MIN_RIDGE_THICKNESS_TOP": float,
     "MAX_RIDGE_THICKNESS_TOP": float,
     "MIN_RIDGE_THICKNESS_BOTTOM": float,
-    "MAX_RIDGE_THICKNESS_BOTTOM": float
+    "MAX_RIDGE_THICKNESS_BOTTOM": float,
 }
 
 class ParametersObject:

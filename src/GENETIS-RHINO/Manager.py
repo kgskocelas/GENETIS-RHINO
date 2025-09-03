@@ -1,8 +1,6 @@
 """Class for managing the evolution of a population of antennas."""
 import random
 
-from DummyFitnessFunc import DummyFitnessFunc   # dummy fitness func for
-# testing alpha version of software
 from Evolver import NSGA2
 from Genotype import Genotype
 from Parameters import ParametersObject
@@ -100,9 +98,7 @@ def main() -> None:
     # 1. Randomly generates initial population
     manager.initialize_population(cfg)
     # analyze initial population
-    #Analysis(manager.population).update(0)  # FIXME Analysis class doesn't
-    # work with Phenotype and Evolver class - expects to have variables it
-    # doesn't have
+    Analysis(manager.population).update(0)
 
     for generation_num in range(1, num_generations):
         # 2. Selects individuals to replicate to the next generation,
