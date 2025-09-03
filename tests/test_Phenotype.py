@@ -19,7 +19,7 @@ class PhenotypeTest(unittest.TestCase):
         Tests the Phenotype constructor with valid inputs.
         """
         # Build a valid Genotype object.
-        g = Genotype(cfg).generate(2, random.Random(1))
+        g = Genotype(cfg).generate_with_ridge(random.Random(1))
 
         # Build a valid Phenotype object.
         p = Phenotype(g, "Kate", "None", 0)
