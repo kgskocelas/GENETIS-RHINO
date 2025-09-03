@@ -95,8 +95,6 @@ def main() -> None:
 
     # 1. Randomly generates initial population
     manager.initialize_population(cfg)
-    # analyze initial population
-    Analysis(manager.population).update(0)
 
     for generation_num in range(1, num_generations):
         # 2. Selects individuals to replicate to the next generation,
