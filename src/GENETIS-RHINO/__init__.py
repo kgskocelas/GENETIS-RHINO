@@ -1,3 +1,6 @@
+"""__init__ for python package."""
+
+
 # import astropy
 # import astropy_healpix
 # import healpy
