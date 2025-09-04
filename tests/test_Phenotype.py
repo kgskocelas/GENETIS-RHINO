@@ -25,7 +25,7 @@ class PhenotypeTest(unittest.TestCase):
         p = Phenotype(g, "Kate", "None", 0)
 
         self.assertIsInstance(p.genotype, Genotype)
-        self.assertEqual(p.indv_id, "Kate")
+        self.assertEqual(p.indiv_id, "Kate")
         self.assertEqual(p.parent1_id, "None")
         self.assertEqual(p.generation_created, 0)
         self.assertEqual(p.fitness_scores, {
@@ -56,7 +56,7 @@ class PhenotypeTest(unittest.TestCase):
         child = parent.make_offspring("Oona", 1, random.Random(1))
 
         self.assertIsInstance(child.genotype, Genotype)
-        self.assertEqual(child.indv_id, "Oona")
+        self.assertEqual(child.indiv_id, "Oona")
         self.assertEqual(child.parent1_id, "Kate")
         self.assertEqual(child.generation_created, 1)
         self.assertEqual(child.fitness_scores, {

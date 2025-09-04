@@ -45,7 +45,7 @@ class test_Manager(unittest.TestCase):
 
         p = manager.population[0]
         self.assertIsInstance(p.genotype, Genotype)
-        self.assertEqual(p.indv_id, "0")
+        self.assertEqual(p.indiv_id, "0")
         self.assertEqual(p.parent1_id, "None")
         self.assertEqual(p.generation_created, 0)
         self.assertEqual(p.fitness_scores, {
@@ -75,7 +75,7 @@ class test_Manager(unittest.TestCase):
         self.assertIsInstance(manager.population[0], Phenotype)
 
         p = manager.population[0]
-        self.assertEqual(p.indv_id, "2")
+        self.assertEqual(p.indiv_id, "2")
         self.assertEqual(p.parent1_id, "1")
         self.assertEqual(p.generation_created, 1)
         self.assertEqual(p.fitness_scores, {

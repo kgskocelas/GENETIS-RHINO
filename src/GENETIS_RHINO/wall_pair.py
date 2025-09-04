@@ -19,9 +19,6 @@ class WallPair:
     This is a helper class representing a wall pair.
     A wall pair is the two walls opposite one another on an antenna.
 
-    :param has_ridge: Whether the wall pair has a ridge or not. Can only be
-    true if all ridge variables are greater than 0. Initialized as False.
-    :type has_ridge: bool, optional
     :param angle: The angle of the wall pair. Must be between 0 and 90
     degrees. Defaults to None.
     :type angle: float, optional
@@ -215,7 +212,7 @@ class WallPair:
     def generate_walls_without_ridge(self,
                                    rand: random.Random) -> list:
         """
-        Generates a list of random WallPair objects wihtout a ridge.
+        Generates a list of random WallPair objects without a ridge.
 
         :param rand: The random number generator.
         :type rand: class:'random.Random'
@@ -248,13 +245,13 @@ class WallPair:
         :type rand: random.Random
         :rtype: None
         """
-        wallpair_genes = ["angle", "ridge_height", "ridge_width_top",
+        wall_pair_genes = ["angle", "ridge_height", "ridge_width_top",
                           "ridge_width_bottom", "ridge_thickness_top",
                           "ridge_thickness_bottom"]
         # Iterate over each gene in the WallPair
-        for gene in wallpair_genes:
+        for gene in wall_pair_genes:
             # if it's randomly selected to mutate, apply a mutation
-            # of mut_effect_size in Guassian distribution
+            # of mut_effect_size in Gaussian distribution
             if per_site_mut_rate >= rand.uniform(0, 1):
                 # angle gene
                 if gene == "angle":
