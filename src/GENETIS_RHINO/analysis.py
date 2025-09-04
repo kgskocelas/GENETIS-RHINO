@@ -2,6 +2,7 @@
 from pathlib import Path
 
 import pandas as pd
+from pandas import DataFrame
 
 from src.GENETIS_RHINO.phenotype import Phenotype
 
@@ -30,14 +31,15 @@ class Analysis:
 
     def to_csv_best_individuals(self,
                                 best_indvs: list[Phenotype],
-                                csv_path: str="best_individuals.csv") -> None:
+                                csv_path: str="best_individuals.csv") -> (
+            DataFrame):
         """Write the attributes of the best phenotypes to a CSV file."""
 
         def make_row(indv: Phenotype) -> pd.DataFrame:
             """Get the attributes of a phenotype and turn its attributes into a table row."""
             row = {}
-            row["Indiv_ID"]                   = [indv.indiv_id]
-            row["Parent1_ID"]            = [indv.parent1_id]
+            row["Indiv_ID"]             = [indv.indiv_id]
+            row["Parent1_ID"]           = [indv.parent1_id]
             row["Generation_Created"]   = [indv.generation_created]
             row["Flare_Length"]         = [indv.genotype.flare_length]
             row["Waveguide_Height"]     = [indv.genotype.waveguide_height]

@@ -73,9 +73,7 @@ class Genotype:
         self.waveguide_width = waveguide_width
         self.walls = walls
 
-    def generate_with_ridge(self, rand: (
-        random.Random)) -> (
-            object):
+    def generate_with_ridge(self, rand: random.Random) -> "Genotype":
         """
         Generate random Genotype with ridge.
 
@@ -109,7 +107,7 @@ class Genotype:
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)
 
-    def generate_without_ridge(self, rand: random.Random) -> object:
+    def generate_without_ridge(self, rand: random.Random) -> "Genotype":
         """
         Generate random Genotype with ridge.
 
@@ -153,8 +151,8 @@ class Genotype:
         :type rand: random.Random
         :rtype: None
         """
-        per_site_mut_rate = self.cfg.per_site_mut_rate
-        mut_effect_size = self.cfg.mut_effect_size
+        per_site_mut_rate = float(self.cfg.per_site_mut_rate)
+        mut_effect_size = float(self.cfg.mut_effect_size)
 
         core_genes = ["flare_length", "waveguide_height", "waveguide_length",
                       "waveguide_width"]

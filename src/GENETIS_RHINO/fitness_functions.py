@@ -136,8 +136,8 @@ def calculate_bcf_stats(freqs : npt.ArrayLike, bcf : npt.ArrayLike) -> dict:
                 anything that deviates from 1, even if that deviation has no frequency
                 structure (lower is better).
             - swing: difference between the maximum and minimum of the BCF. Can
-                be used to penalise large variations across the band, whether or
-                not they look smooth in frequency (lower is better)
+                be used to penalise large variations across the band,
+                regardless of whether they look smooth in frequency (lower is better)
 
     """
     stats = {}
