@@ -14,12 +14,14 @@ class test_Manager(unittest.TestCase):
     """
     # Constants for all tests
     SEED = 1  # random number generator seed
+    POPULATION_SIZE = 2
     PER_SITE_MUT_RATE = 1.0  # per site mutation rate
     MUT_AMPLITUDE = 0.1  # mutation amplitude
 
     # config for all tests
-    cfg = ParametersObject(pathlib.Path(
-        __file__).parent.parent / "src/GENETIS_RHINO/config.toml")
+    cfg = ParametersObject(str(pathlib.Path(
+        __file__).parent.parent / "src/GENETIS_RHINO/config.toml"))
+    cfg.population_size = 2
     cfg.per_site_mut_rate = PER_SITE_MUT_RATE
     cfg.mut_effect_size = MUT_AMPLITUDE
 

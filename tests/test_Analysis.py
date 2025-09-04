@@ -67,3 +67,6 @@ class AnalysisTest(unittest.TestCase):
             self.assertEqual(fitness_table[metric+"_Average"][0], avg_score)
             self.assertEqual(fitness_table[metric+"_Maximum"][0], max_score)
         print(len(fitness_table))
+
+if __name__ == '__main__':
+    unittest.main()
