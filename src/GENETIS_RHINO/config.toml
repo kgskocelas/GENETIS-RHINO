@@ -1,16 +1,16 @@
-### Evolution parameters
+### Evolution Parameters ###
 random_num_seed = 1
-population_size = 2
-num_generations = 3
+population_size = 500           # TODO confirm
+num_generations = 1000          # TODO confirm
 per_site_mut_rate = 0.3
 mut_effect_size = 0.1
 selection_scheme = "NSGAII"
 percent_no_ridge_at_start = 0.1  # the % of indiv generated w/ no ridge when
-                                    # generating a new starting population
+                                 # generating a new starting population
 
-### Individual parameters
+### Individual Parameters ###
 
-# Horn parameters
+# Horn Parameters
 NUM_WALL_PAIRS = 2
 
 MIN_FLARE_LENGTH = 2.0   # TODO confirm this with horn guys
