@@ -4,5 +4,4 @@ healpy
 matplotlib
 numpy
 pytest==8.3.3
-pylab
 pandas
