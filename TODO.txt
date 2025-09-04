@@ -2,11 +2,11 @@
 ** PHASE 2 **
 -------------
 CODE:
-[ ] KATE - parameterize % of wall pairs to be generated without a ridge
-[ ] KATE - Code simple crossover
-[ ] ??? - Switch from dummy fitness function to real fitness function
+[ ] MAX - Switch from dummy fitness function to real fitness function
 [ ] EMILY - phylogeny tracking
+[ ] KATE - Code simple crossover
 
 TESTING:
+[ ] MAX - test integration with XFdtd
 [ ] KATE - test simple crossover
 [ ] EMILY - test phylogeny tracking
