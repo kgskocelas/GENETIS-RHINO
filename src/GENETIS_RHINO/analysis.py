@@ -36,7 +36,7 @@ class Analysis:
         def make_row(indv: Phenotype) -> pd.DataFrame:
             """Get the attributes of a phenotype and turn its attributes into a table row."""
             row = {}
-            row["Indiv_ID"]                   = [indv.indv_id]
+            row["Indiv_ID"]                   = [indv.indiv_id]
             row["Parent1_ID"]            = [indv.parent1_id]
             row["Generation_Created"]   = [indv.generation_created]
             row["Flare_Length"]         = [indv.genotype.flare_length]

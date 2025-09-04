@@ -87,8 +87,8 @@ class Manager:
 def main() -> None:
     """Main function."""
     # 0. Initialize manager
-    cfg = ParametersObject(pathlib.Path(
-        __file__).parent.parent/"GENETIS_RHINO/config.toml")
+    cfg = ParametersObject(str(pathlib.Path(
+        __file__).parent.parent/"GENETIS_RHINO/config.toml"))
     manager = Manager(cfg)
 
     num_generations = int(cfg.num_generations)

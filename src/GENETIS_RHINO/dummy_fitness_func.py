@@ -34,6 +34,6 @@ class DummyFitnessFunc:
 
             i = i + 1
 
-    def getFitnessScores(self) -> dict:
+    def get_fitness_scores(self) -> dict:
         """Returns dict of dummy fitness scores."""
         return self.fitness_scores

@@ -81,8 +81,6 @@ class Genotype:
 
         Makes a Genotype object with randomly generated genes and ridge.
 
-        :param num_wall_pairs: number of WallPair objects
-        :type num_wall_pairs: int
         :param rand: Random number generator object.
         :type rand: random.Random
         :return: Genotype object
@@ -111,16 +109,12 @@ class Genotype:
         return Genotype(self.cfg, flare_length, waveguide_height,
                         waveguide_length, waveguide_width, walls)
 
-    def generate_without_ridge(self, rand: (
-        random.Random)) -> (
-            object):
+    def generate_without_ridge(self, rand: random.Random) -> object:
         """
         Generate random Genotype with ridge.
 
         Makes a Genotype object with randomly generated genes and ridge.
 
-        :param num_wall_pairs: number of WallPair objects
-        :type num_wall_pairs: int
         :param rand: Random number generator object.
         :type rand: random.Random
         :return: Genotype object
@@ -168,7 +162,7 @@ class Genotype:
         # Iterate over each gene in the Genotype
         for gene in core_genes:
             # if it's randomly selected to mutate, apply a mutation of
-            # mut_effect_size in Guassian distribution
+            # mut_effect_size in Gaussian distribution
             if per_site_mut_rate >= rand.uniform(0, 1):
                 # flare_length gene
                 if gene == "flare_length":

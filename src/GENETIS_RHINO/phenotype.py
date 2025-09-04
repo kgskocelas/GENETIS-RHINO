@@ -16,18 +16,16 @@ class Phenotype:
 
     :param genotype: a Genotype instance.
     :type genotype: Genotype
-    :param indv_id: The individual's unique ID.
-    :type indv_id: str, optional
+    :param indiv_id: The individual's unique ID.
+    :type indiv_id: str, optional
     :param parent1_id: The individual's parent's unique ID.
     :type parent1_id: str, optional
     :param generation_created: Which generation the individual was created.
     :type generation_created: int, optional
-    :param fitness_score: The fitness score of the individual.
-    :type fitness_scores: float, optional
     """
 
     def __init__(self, genotype: Genotype,
-                 indv_id: Optional[str],
+                 indiv_id: Optional[str],
                  parent1_id: Optional[str],
                  generation_created: Optional[int]) -> None:
         """
@@ -37,8 +35,8 @@ class Phenotype:
 
         :param genotype: a Genotype instance.
         :type genotype: Genotype
-        :param indv_id: The individual's unique ID.
-        :type indv_id: str, optional
+        :param indiv_id: The individual's unique ID.
+        :type indiv_id: str, optional
         :param parent1_id: The individual's parent's unique ID.
         :type parent1_id: str, optional
         :param generation_created: Which generation the individual was created.
@@ -46,10 +44,10 @@ class Phenotype:
         :rtype: None
         """
         self.genotype = genotype
-        self.indv_id = indv_id
+        self.indiv_id = indiv_id
         self.parent1_id = parent1_id
         self.generation_created = generation_created
-        self.fitness_scores = DummyFitnessFunc(genotype).getFitnessScores()
+        self.fitness_scores = DummyFitnessFunc(genotype).get_fitness_scores()
 
     def make_offspring(self, new_id: str, generation_num: int,
                        rand: random.Random) -> object:
@@ -69,9 +67,9 @@ class Phenotype:
         # make a copy of parent 1 to be the offspring
         offspring = copy.deepcopy(self)
 
-        # set fields for new_indiv
-        offspring.parent1_id = self.indv_id
-        offspring.indv_id = new_id
+        # set fields for new individual
+        offspring.parent1_id = self.indiv_id
+        offspring.indiv_id = new_id
         offspring.generation_created = generation_num
 
         # mutate offspring
@@ -79,5 +77,5 @@ class Phenotype:
 
         # calc new fitness score  TODO Replace with actual fitness calc
         offspring.fitness_scores = DummyFitnessFunc(
-            offspring.genotype).getFitnessScores()
+            offspring.genotype).get_fitness_scores()
         return offspring
