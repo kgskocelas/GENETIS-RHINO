@@ -18,6 +18,8 @@ HANDOFF FROM KATE TO MAX:
 [ ] Confirm config.toml settings that are flagged with TODO's (the rest were
 already confirmed during meetings)
 
+[ ] Confirm we are collecting all of the data necessary and nothing more.
+
 
 -------------
 ** PHASE 2 **
