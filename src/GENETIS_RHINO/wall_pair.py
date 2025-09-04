@@ -114,7 +114,7 @@ class WallPair:
         self.ridge_thickness_top = ridge_thickness_top
         self.ridge_thickness_bottom = ridge_thickness_bottom
 
-    def generate_without_ridge(self, rand: random.Random) -> object:
+    def generate_without_ridge(self, rand: random.Random) -> "WallPair":
         """
         Generates a WallPair without a ridge.
 
@@ -150,7 +150,7 @@ class WallPair:
                         ridge_width_bottom,
                         ridge_thickness_top, ridge_thickness_bottom)
 
-    def generate_with_ridge(self, rand: random.Random) -> object:
+    def generate_with_ridge(self, rand: random.Random) -> "WallPair":
         """
         Generates a random WallPair object with a ridge.
 

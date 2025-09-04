@@ -50,7 +50,7 @@ class Phenotype:
         self.fitness_scores = DummyFitnessFunc(genotype).get_fitness_scores()
 
     def make_offspring(self, new_id: str, generation_num: int,
-                       rand: random.Random) -> object:
+                       rand: random.Random) -> "Phenotype":
         """
         Make offspring.
 

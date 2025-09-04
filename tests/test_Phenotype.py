@@ -6,8 +6,8 @@ from src.GENETIS_RHINO.phenotype import Genotype
 from src.GENETIS_RHINO.parameters import ParametersObject
 from src.GENETIS_RHINO.phenotype import Phenotype
 
-cfg = ParametersObject(pathlib.Path(
-        __file__).parent.parent/"src/GENETIS_RHINO/config.toml")
+cfg = ParametersObject(str(pathlib.Path(
+        __file__).parent.parent/"src/GENETIS_RHINO/config.toml"))
 
 class PhenotypeTest(unittest.TestCase):
     """
