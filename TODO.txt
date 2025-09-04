@@ -2,7 +2,9 @@
 ** PHASE 1 **
 -------------
 HANDOFF FROM KATE TO MAX:
+
 [ ] Look at error in parameters.py
+
 [ ] Look at Warnings in:
     1. Analysis.py (ask Evan if unsure)
     2. Evolver.py
@@ -23,5 +25,5 @@ CODE:
 
 TESTING:
 [ ] MAX - test integration with XFdtd
-[ ] KATE - test simple crossover
 [ ] EMILY - test phylogeny tracking
+[ ] KATE - test simple crossover
